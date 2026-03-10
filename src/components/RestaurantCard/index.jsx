@@ -21,9 +21,9 @@ const RestaurantCard = (props) => {
           {cuisine}
         </p>
 
-        <div className="rating-container">
-          <AiFillStar className="star-icon" />
-          <span className="rating">{rating}</span>
+        <div className="rating-container d-flex align-items-center">
+          <AiFillStar className="star-icon me-1" />
+          <span className="rating fw-bold me-1">{rating}</span>
           <span className="reviews text-muted">
             ({totalReviews} ratings)
           </span>

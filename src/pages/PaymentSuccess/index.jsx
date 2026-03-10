@@ -11,42 +11,33 @@ const PaymentSuccess = () => {
   }
 
   return (
-    <>
+    <div className="payment-success-page">
       <Navbar />
-
-      <div className="container payment-wrapper d-flex flex-column justify-content-center mt-5">
-        <div className="row">
-
-          <div className="col-12 align-items-center text-center mt-5 h-100">
-
-            <div className="success-icon mb-4">
-              <FaCheck />
-            </div>
-
-            <h1 className="success-title">
-              Payment Successful
-            </h1>
-
-            <p className="success-text mb-1">
-              Thank you for ordering
-            </p>
-
-            <p className="success-text mb-4">
-              Your payment is successfully completed.
-            </p>
-
-            <button
-              className="btn home-btn"
-              onClick={goHome}
-            >
-              Go To Home Page
-            </button>
-
-          </div>
-
+      <div className="payment-success-content-wrapper p-4 p-md-5 text-center">
+        <div className="success-icon mb-4">
+          <FaCheck />
         </div>
+
+        <h1 className="success-title mb-3">
+          Payment Successful
+        </h1>
+
+        <p className="success-text mb-1">
+          Thank you for ordering
+        </p>
+
+        <p className="success-text mb-4">
+          Your payment is successfully completed.
+        </p>
+
+        <button
+          className="btn home-btn"
+          onClick={goHome}
+        >
+          Go To Home Page
+        </button>
       </div>
-    </>
+    </div>
   )
 }
 
