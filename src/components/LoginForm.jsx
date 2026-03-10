@@ -43,15 +43,12 @@ function LoginForm() {
 
       </div>
 
-      <p className="text-danger small text-center mb-3">
-        Please enter a valid Username & Password
-      </p>
-
       <button
         className="btn w-100 text-white"
         style={{
           background:"#f7931e",
-          borderRadius:"8px"
+          borderRadius:"8px",
+          marginTop:"25px"
         }}
       >
         Login

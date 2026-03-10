@@ -1,5 +1,5 @@
 import LoginForm from "../components/LoginForm"
-import foodImage from "../assets/food_img_signup.jpg"
+import foodImage from "../assets/food.jpg"
 import logo from "../assets/Tasty_Kitchen_Logo.png"
 import "../styles/Login.css"
 
