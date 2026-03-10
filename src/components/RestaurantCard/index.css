@@ -1,0 +1,40 @@
+.restaurant-card {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 12px;
+}
+
+.restaurant-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.restaurant-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.restaurant-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #1e293b;
+}
+
+.restaurant-cuisine {
+    font-size: 0.9rem;
+}
+
+.star-icon {
+    color: #ffcc00;
+    font-size: 16px;
+}
+
+.rating {
+    font-size: 0.95rem;
+    color: #1e293b;
+}
+
+.reviews {
+    font-size: 0.85rem;
+}

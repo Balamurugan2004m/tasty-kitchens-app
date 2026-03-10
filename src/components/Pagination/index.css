@@ -1,0 +1,26 @@
+.pagination-container {
+    color: #1e293b;
+}
+
+.pagination-button {
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.pagination-button:hover {
+    background-color: #f1f5f9;
+}
+
+.chevron-icon {
+    font-size: 20px;
+    color: #475569;
+}
+
+.pagination-text {
+    font-size: 1.1rem;
+}

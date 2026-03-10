@@ -1,0 +1,30 @@
+.section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1e293b;
+}
+
+.section-subtitle {
+    font-size: 1rem;
+}
+
+.sort-label {
+    font-size: 0.95rem;
+    color: #475569;
+}
+
+.sort-select {
+    cursor: pointer;
+    color: #1e293b;
+    outline: none;
+}
+
+.filter-icon {
+    font-size: 24px;
+    color: #475569;
+}
+
+hr {
+    opacity: 0.1;
+    margin-top: 20px;
+}
