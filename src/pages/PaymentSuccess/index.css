@@ -1,0 +1,39 @@
+.payment-container {
+  height: 100vh;
+}
+
+.success-icon {
+  width: 60px;
+  height: 60px;
+  background-color: #22c55e;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  color: white;
+  font-size: 24px;
+}
+
+.success-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.success-text {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.home-btn {
+  background-color: #f7931e;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+}
+
+.home-btn:hover {
+  background-color: #e57f12;
+}
+

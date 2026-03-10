@@ -1,4 +1,7 @@
 .restaurant-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
     border-radius: 12px;
@@ -10,9 +13,11 @@
 }
 
 .restaurant-image {
-    width: 100%;
-    height: auto;
+    width: 160px;
+    height: 100px;
     object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
 }
 
 .restaurant-name {
@@ -37,4 +42,10 @@
 
 .reviews {
     font-size: 0.85rem;
+}
+
+.restaurant-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

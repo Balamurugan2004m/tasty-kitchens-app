@@ -1,18 +1,15 @@
-import Navbar from "./components/Navbar"
-import HeroBanner from "./components/HeroBanner"
-import PopularRestaurants from "./components/PopularRestaurants"
-import Pagination from "./components/Pagination"
-import Footer from "./components/Footer"
+import { Routes, Route } from "react-router-dom"
+import Home from "./pages/Home"
+import NotFound from "./pages/NotFound"
+import PaymentSuccess from "./pages/PaymentSuccess"
 
 function App() {
   return (
-    <>
-      <Navbar />
-      <HeroBanner />
-      <PopularRestaurants />
-      <Pagination />
-      <Footer />
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/payment-success" element={<PaymentSuccess />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   )
 }
 
