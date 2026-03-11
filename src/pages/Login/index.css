@@ -59,8 +59,8 @@
         position: absolute;
         width: 387px !important;
         height: 387px !important;
-        top: -88px;
-        right: -88px;
+        top: 0px;
+        right: 0px;
         left: 66px;
         border-radius: 249.94px;
         overflow: hidden;
