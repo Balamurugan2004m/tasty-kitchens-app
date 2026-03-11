@@ -1,70 +1,118 @@
 import { useState } from 'react'
+import { useNavigate, Navigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 import './index.css'
 
 const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [showError, setShowError] = useState(false)
+    const [errorMsg, setErrorMsg] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
 
-    const onSubmitForm = (e) => {
+    const navigate = useNavigate()
+
+    const onSubmitSuccess = (jwtToken) => {
+        Cookies.set('jwt_token', jwtToken, { expires: 30 })
+        navigate('/', { replace: true })
+    }
+
+    const onSubmitFailure = (errorMsg) => {
+        setShowError(true)
+        setErrorMsg(errorMsg)
+        setIsLoading(false)
+    }
+
+    const onSubmitForm = async (e) => {
         e.preventDefault()
-        // Login logic would go here
+        setIsLoading(true)
+        setShowError(false)
+
+        const userDetails = { username, password }
+        const url = 'https://apis.ccbp.in/login'
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(userDetails),
+        }
+
+        try {
+            const response = await fetch(url, options)
+            const data = await response.json()
+            if (response.ok === true) {
+                onSubmitSuccess(data.jwt_token)
+            } else {
+                onSubmitFailure(data.error_msg)
+            }
+        } catch (error) {
+            onSubmitFailure('Something went wrong. Please try again later.')
+        }
+    }
+
+    const jwtToken = Cookies.get('jwt_token')
+    if (jwtToken !== undefined) {
+        return <Navigate to="/" replace={true} />
     }
 
     return (
-        <div className="login-page-container container-fluid p-0">
-            <div className="row g-0 vh-100">
+        <div className="login-page-container">
+            <div className="login-content-wrapper">
                 {/* Form Section */}
-                <div className="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center bg-white login-form-col order-2 order-md-1">
-                    <div className="login-card w-100 px-4 px-lg-5">
-                        <div className="logo-container d-flex flex-column align-items-center mb-3 d-none d-md-flex">
+                <div className="login-form-container">
+                    <div className="login-card">
+                        <div className="logo-container d-none d-md-flex">
                             <img
                                 src="https://res.cloudinary.com/dmmfmktet/image/upload/v1773055421/3d30e43f-d664-464d-ac18-f113dfd80da5_zaqrzs.png"
                                 alt="website logo"
                                 className="login-website-logo"
-                                width="56"
                             />
-                            <h1 className="login-website-name fw-bold fst-italic h4 mt-2 mb-0">Tasty Kitchens</h1>
+                            <h1 className="login-website-name">Tasty Kitchens</h1>
                         </div>
 
-                        <h1 className="login-heading display-6 fw-normal mb-3 text-start">Login</h1>
+                        <h1 className="login-heading">Login</h1>
 
                         <form className="login-form" onSubmit={onSubmitForm}>
-                            <div className="mb-3">
-                                <label className="form-label small fw-bold text-secondary mb-2" htmlFor="username">
+                            <div className="input-container">
+                                <label className="input-label" htmlFor="username">
                                     USERNAME
                                 </label>
                                 <input
                                     type="text"
                                     id="username"
-                                    className="form-control border-0 bg-light py-2 px-3 username-input"
+                                    className="login-input"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
+                                    placeholder="Enter Username"
+                                    required
                                 />
                             </div>
 
-                            <div className="mb-3">
-                                <label className="form-label small fw-bold text-secondary mb-2" htmlFor="password">
+                            <div className="input-container">
+                                <label className="input-label" htmlFor="password">
                                     PASSWORD
                                 </label>
                                 <input
                                     type="password"
                                     id="password"
-                                    className="form-control border-0 bg-light py-2 px-3 password-input"
+                                    className="login-input"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
+                                    placeholder="Enter Password"
+                                    required
                                 />
                             </div>
 
-                            <button type="submit" className="btn btn-warning w-100 py-2 fw-bold text-white login-button mt-2">
-                                Login
+                            {showError && <p className="error-message">{errorMsg}</p>}
+
+                            <button type="submit" className="login-button" disabled={isLoading}>
+                                {isLoading ? 'Logging in...' : 'Login'}
                             </button>
                         </form>
                     </div>
                 </div>
 
                 {/* Image Section */}
-                <div className="col-12 col-md-6 login-image-col order-1 order-md-2">
-                    <div className="login-image-wrapper">
+                <div className="login-image-container">
+                    <div className="image-wrapper">
                         <img
                             src="https://res.cloudinary.com/dmmfmktet/image/upload/v1773139144/ceff20e8367d1981f2a409a617ac848670d29c7e_awmcqd.jpg"
                             alt="website login"
