@@ -7,7 +7,7 @@ import { restaurantsData } from "../../constants"
 import "./index.css"
 
 const PopularRestaurants = () => {
-  const [sortType, setSortType] = useState("Lowest")
+  const [sortType, setSortType] = useState("Highest")
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   const toggleDropdown = () => {

@@ -16,7 +16,7 @@ const Login = () => {
                 {/* Form Section */}
                 <div className="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center bg-white login-form-col order-2 order-md-1">
                     <div className="login-card w-100 px-4 px-lg-5">
-                        <div className="logo-container d-flex flex-column align-items-center mb-5 d-none d-md-flex">
+                        <div className="logo-container d-flex flex-column align-items-center mb-3 d-none d-md-flex">
                             <img
                                 src="https://res.cloudinary.com/dmmfmktet/image/upload/v1773055421/3d30e43f-d664-464d-ac18-f113dfd80da5_zaqrzs.png"
                                 alt="website logo"
@@ -26,10 +26,10 @@ const Login = () => {
                             <h1 className="login-website-name fw-bold fst-italic h4 mt-2 mb-0">Tasty Kitchens</h1>
                         </div>
 
-                        <h1 className="login-heading display-6 fw-normal mb-4 text-start">Login</h1>
+                        <h1 className="login-heading display-6 fw-normal mb-3 text-start">Login</h1>
 
                         <form className="login-form" onSubmit={onSubmitForm}>
-                            <div className="mb-4">
+                            <div className="mb-3">
                                 <label className="form-label small fw-bold text-secondary mb-2" htmlFor="username">
                                     USERNAME
                                 </label>
@@ -42,7 +42,7 @@ const Login = () => {
                                 />
                             </div>
 
-                            <div className="mb-4">
+                            <div className="mb-3">
                                 <label className="form-label small fw-bold text-secondary mb-2" htmlFor="password">
                                     PASSWORD
                                 </label>
