@@ -28,7 +28,7 @@ const FoodItem = (props) => {
           <img src={imageUrl} alt={name} className="food-image rounded-3 w-100 shadow-sm" />
         </div>
         <div className="col-8 col-md-9 ps-md-4">
-          <h2 className="food-name mb-1">{name}</h2>
+          <h1 className="food-name mb-1">{name}</h1>
           <p className="food-price mb-2">₹ {cost}.00</p>
           <div className="d-flex align-items-center mb-3 food-rating-row">
             <FaStar className="star-icon me-1 text-warning" />

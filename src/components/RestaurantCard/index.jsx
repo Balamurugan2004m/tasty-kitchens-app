@@ -8,8 +8,8 @@ const RestaurantCard = (props) => {
   const { rating, totalReviews } = userRating
 
   return (
-    <Link to={`/restaurant/${id}`} className="text-decoration-none text-dark">
-      <div className="restaurant-card p-3">
+    <Link to={`/restaurant/${id}`} className="text-decoration-none">
+      <div className="restaurant-card">
         <img
           src={imageUrl}
           alt={name}
@@ -19,14 +19,14 @@ const RestaurantCard = (props) => {
         <div className="restaurant-details">
           <h2 className="restaurant-name">{name}</h2>
 
-          <p className="restaurant-cuisine text-muted">
+          <p className="restaurant-cuisine">
             {cuisine}
           </p>
 
-          <div className="rating-container d-flex align-items-center">
-            <AiFillStar className="star-icon me-1" />
-            <span className="rating fw-bold me-1">{rating}</span>
-            <span className="reviews text-muted">
+          <div className="rating-container">
+            <AiFillStar className="star-icon" />
+            <span className="rating">{rating}</span>
+            <span className="reviews">
               ({totalReviews} ratings)
             </span>
           </div>

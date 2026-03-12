@@ -6,7 +6,7 @@ export const restaurantsData = [
         cuisine: 'Fast Food',
         userRating: {
             rating: 4.6,
-            totalReviews: 222,
+            totalReviews: 132,
         },
     },
     {
@@ -16,7 +16,7 @@ export const restaurantsData = [
         cuisine: 'Fast Food',
         userRating: {
             rating: 4.9,
-            totalReviews: 222,
+            totalReviews:362,
         },
     },
     {
@@ -26,7 +26,7 @@ export const restaurantsData = [
         cuisine: 'Fast Food',
         userRating: {
             rating: 4.1,
-            totalReviews: 222,
+            totalReviews: 657,
         },
     },
     {
@@ -36,7 +36,7 @@ export const restaurantsData = [
         cuisine: 'Fast Food',
         userRating: {
             rating: 4.3,
-            totalReviews: 222,
+            totalReviews: 358,
         },
     },
     {
@@ -46,7 +46,7 @@ export const restaurantsData = [
         cuisine: 'Fast Food',
         userRating: {
             rating: 4.5,
-            totalReviews: 222,
+            totalReviews: 973,
         },
     },
     {
@@ -56,7 +56,7 @@ export const restaurantsData = [
         cuisine: 'Fast Food',
         userRating: {
             rating: 4,
-            totalReviews: 222,
+            totalReviews: 234,
         },
     },
     {
@@ -66,7 +66,7 @@ export const restaurantsData = [
         cuisine: 'Fast Food',
         userRating: {
             rating: 4.8,
-            totalReviews: 222,
+            totalReviews: 765,
         },
     },
     {
@@ -76,7 +76,7 @@ export const restaurantsData = [
         cuisine: 'Fast Food',
         userRating: {
             rating: 4.4,
-            totalReviews: 222,
+            totalReviews: 843,
         },
     },
     {
@@ -86,7 +86,277 @@ export const restaurantsData = [
         cuisine: 'Fast Food',
         userRating: {
             rating: 4.7,
-            totalReviews: 222,
+            totalReviews: 453,
         },
     },
+    {
+        id: '10',
+        name: 'KFC',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308694/KFC_ragmnh.jpg',
+        cuisine: 'Fast Food',
+        userRating: {
+            rating: 4.4,
+            totalReviews: 675,
+        },
+    },
+    {
+        id: '11',
+        name: 'Burger King',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308694/Burger_King_s1rw39.jpg',
+        cuisine: 'Fast Food',
+        userRating: {
+            rating: 4.2,
+            totalReviews: 953,
+        },
+    },
+    {
+        id: '12',
+        name: 'Dominos Pizza',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308695/Domino_s_Pizza_fz1g5r.jpg',
+        cuisine: 'Fast Food',
+        userRating: {
+            rating: 4.1,
+            totalReviews: 234,
+        },
+    },
+    {
+        id: '13',
+        name: 'Taco Bell',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308697/Taco_Bell_pjkjq2.jpg',
+        cuisine: 'Mexican Fast Food',
+        userRating: {
+            rating: 4.5,
+            totalReviews: 764,
+        },
+    },
+    {
+        id: '14',
+        name: 'Starbucks',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308696/Starbucks_owxirf.jpg',
+        cuisine: 'Cafe / Coffee',
+        userRating: {
+            rating: 4.5,
+            totalReviews: 794,
+        },
+    },
+    {
+        id: '15',
+        name: 'Dunkin',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308696/Dunkin_tls9ix.jpg',
+        cuisine: 'Coffee & Bakery',
+        userRating: {
+            rating: 4.4,
+            totalReviews: 529,
+        },
+    },
+    {
+        id: '16',
+        name: 'Popeyes',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308696/Popeyes_j0wvrw.jpg',
+        cuisine: 'Fried Chicken',
+        userRating: {
+            rating: 4.7,
+            totalReviews: 407,
+        },
+    },
+    {
+        id: '17',
+        name: 'Chipotle',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308695/Chipotle_qmzxto.jpg',
+        cuisine: 'Mexican Cuisine',
+        userRating: {
+            rating: 4.7,
+            totalReviews: 863,
+        },
+    },
+    {
+        id: '18',
+        name: 'Nando\'s',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308696/Nando_s_zabfew.jpg',
+        cuisine: 'Portuguese / Grilled Chicken',
+        userRating: {
+            rating: 4.7,
+            totalReviews: 397,
+        },
+    },
+    {
+        id: '19',
+        name: 'Hard Rock Cafe',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308694/Hard_Rock_Cafe_wnvfwt.jpg',
+        cuisine: 'American',
+        userRating: {
+            rating: 4.7,
+            totalReviews: 843,
+        },
+    },
+    {
+        id: '20',
+        name: 'Olive Garden',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308696/Olive_Garden_zbtgxh.jpg',
+        cuisine: 'Italian',
+        userRating: {
+            rating: 4.9,
+            totalReviews: 763,
+        },
+    },
+    {
+        id: '21',
+        name: 'Cheesecake Factory',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308694/Cheesecake_Factory_dfkuf3.jpg',
+        cuisine: 'American / Dessert',
+        userRating: {
+            rating: 4.9,
+            totalReviews: 1364,
+        },
+    },
+    {
+        id: '22',
+        name: 'Panda Express',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308696/Panda_Express_lzcmh9.jpg',
+        cuisine: 'Chinese',
+        userRating: {
+            rating: 4.1,
+            totalReviews: 574,
+        },
+    },
+    {
+        id: '23',
+        name: 'PF Chang\'s',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308696/PF_Chang_s_ryfzuj.jpg',
+        cuisine: 'Asian Fusion',
+        userRating: {
+            rating: 4.6,
+            totalReviews: 385,
+        },
+    },
+    {
+        id: '24',
+        name: 'Chili\'s Grill & Bar',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308695/Chili_s_Grill_Bar_tky6fx.jpg',
+        cuisine: 'Tex-Mex',
+        userRating: {
+            rating: 4.3,
+            totalReviews: 942,
+        },
+    },
+    {
+        id: '25',
+        name: 'IHOP',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308694/IHOP_zayna1.jpg',
+        cuisine: 'American Breakfast',
+        userRating: {
+            rating: 4.8,
+            totalReviews: 475,
+        },
+    },
+    {
+        id: '26',
+        name: 'Denny\'s',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308695/Denny_s_kavgdf.jpg',
+        cuisine: 'American Diner',
+        userRating: {
+            rating: 4.3,
+            totalReviews: 763,
+        },
+    },
+    {
+        id: '27',
+        name: 'Five Guys',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308696/Five_Guys_cftncc.jpg',
+        cuisine: 'Burgers',
+        userRating: {
+            rating: 4.4,
+            totalReviews: 385,
+        },
+    },
+    {
+        id: '28',
+        name: 'Tim Hortons',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308697/Tim_Hortons_ceoy8y.jpg',
+        cuisine: 'Coffee & Bakery',
+        userRating: {
+            rating: 4.8,
+            totalReviews: 632,
+        },
+    },
+    {
+        id: '29',
+        name: 'Baskin Robbins',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308694/Baskin_Robbins_ef6dfw.jpg',
+        cuisine: 'Ice Cream',
+        userRating: {
+            rating: 4.7,
+            totalReviews: 974,
+        },
+    },
+    {
+        id: '30',
+        name: 'Dairy Queen',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308695/Dairy_Queen_zndwdf.jpg',
+        cuisine: 'Ice Cream / Fast Food',
+        userRating: {
+            rating: 5.0,
+            totalReviews: 1574,
+        },
+    },
+    {
+        id: '31',
+        name: 'Haldiram\'s',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773316754/Haldiram_s_dkxaig.jpg',
+        cuisine: 'Indian Snacks',
+        userRating: {
+            rating: 4.7,
+            totalReviews: 629,
+        },
+    },
+    {
+        id: '32',
+        name: 'Krispy Kreme',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773308694/Krispy_Kreme_rr7ucd.jpg',
+        cuisine: 'Donuts',
+        userRating: {
+            rating: 4.7,
+            totalReviews: 897,
+        },
+    },
+    {
+        id: '33',
+        name: 'Saravana Bhavan',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773316752/Saravana_Bhavan_g79a7a.jpg',
+        cuisine: 'South Indian',
+        userRating: {
+            rating: 4.9,
+            totalReviews: 525,
+        },
+    },
+    {
+        id: '34',
+        name: 'A2B (Adyar Ananda Bhavan',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773316750/A2B_Adyar_Ananda_Bhavan_rldmkk.jpg',
+        cuisine: 'South Indian',
+        userRating: {
+            rating: 4.8,
+            totalReviews: 773,
+        },
+    },
+    {
+        id: '35',
+        name: 'Paradise Biryani',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773316747/Paradise_Biryani_kxl2hj.jpg',
+        cuisine: 'Hyderabadi',
+        userRating: {
+            rating: 4.9,
+            totalReviews: 946,
+        },
+    },
+    {
+        id: '36',
+        name: 'Faasos',
+        imageUrl: 'https://res.cloudinary.com/dy7ogboi4/image/upload/v1773316740/The_Belgian_Waffle_Co._hbmhc2.jpg',
+        cuisine: 'Wraps / Fast Food',
+        userRating: {
+            rating: 4.7,
+            totalReviews: 222,
+        },
+    }
 ]
