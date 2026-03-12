@@ -3,12 +3,14 @@ import Home from "./pages/Home"
 import NotFound from "./pages/NotFound"
 import PaymentSuccess from "./pages/PaymentSuccess"
 import Login from "./pages/Login"
+import RestaurantDetails from "./pages/RestaurantDetails"
 
 function App() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Home />} />
+      <Route path="/restaurant/:id" element={<RestaurantDetails />} />
       <Route path="/payment-success" element={<PaymentSuccess />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
