@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+
+.logo-text {
+  color: #f7931e;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 20px;
+}
