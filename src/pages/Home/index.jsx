@@ -39,6 +39,7 @@ const Home = () => {
       <PopularRestaurants
         page={page}
         itemsPerPage={itemsPerPage}
+        setPage={setPage}
       />
 
       <Pagination
