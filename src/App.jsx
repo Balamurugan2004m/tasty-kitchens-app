@@ -1,35 +1,19 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
+import Home from "./pages/Home"
+import NotFound from "./pages/NotFound"
+import PaymentSuccess from "./pages/PaymentSuccess"
 import Login from "./pages/Login"
-import Signup from "./pages/Signup"
-import Cart from "./pages/Cart"
-import Checkout from "./pages/Checkout"
-import Payment from "./pages/Payment"
-import OrderSuccess from "./pages/OrderSuccess"
-import Profile from "./pages/Profile"
-import OrderHistory from "./pages/OrderHistory"
-import OrderTracking from "./pages/OrderTracking"
+import RestaurantDetails from "./pages/RestaurantDetails"
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/payment" element={<Payment />} />
-
-        <Route path="/order-success" element={<OrderSuccess />} />
-
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/orders" element={<OrderHistory />} />
-        <Route path="/order-tracking" element={<OrderTracking />} />
-
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/restaurant/:id" element={<RestaurantDetails />} />
+      <Route path="/payment-success" element={<PaymentSuccess />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   )
 }
 

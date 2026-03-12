@@ -1,0 +1,33 @@
+.footer-section {
+    background-color: #0f172a;
+    color: #ffffff;
+}
+
+.footer-heading {
+    font-size: 1.8rem;
+    font-weight: bold;
+    font-style: italic;
+    margin-bottom: 0;
+}
+
+.footer-tagline {
+    color: #cbd5e1;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.social-icon {
+    font-size: 24px;
+    margin: 0 15px;
+    cursor: pointer;
+    color: #ffffff;
+    transition: color 0.3s;
+}
+
+.social-icon:hover {
+    color: #f7931e;
+}
+
+.footer-logo {
+    filter: brightness(0) invert(1);
+}
