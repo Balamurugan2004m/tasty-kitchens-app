@@ -5,9 +5,10 @@ import FoodItem from '../../components/FoodItem'
 import Footer from '../../components/Footer'
 import { restaurantsData } from '../../constants'
 
-const mockFoodItems = [
+export const mockFoodItems = [
   {
     id: 'f1',
+    restaurantId: '1',
     name: 'Chicken Roast',
     cost: 350,
     rating: 4.8,
@@ -15,6 +16,7 @@ const mockFoodItems = [
   },
   {
     id: 'f2',
+    restaurantId: '1',
     name: 'Full Meals',
     cost: 250,
     rating: 4.4,
@@ -22,6 +24,7 @@ const mockFoodItems = [
   },
   {
     id: 'f3',
+    restaurantId: '1',
     name: 'Subbaya Full Meals',
     cost: 400,
     rating: 4.4,
@@ -29,6 +32,7 @@ const mockFoodItems = [
   },
   {
     id: 'f4',
+    restaurantId: '1',
     name: 'Samosa (2)',
     cost: 350,
     rating: 4.8,
@@ -36,6 +40,7 @@ const mockFoodItems = [
   },
   {
     id: 'f5',
+    restaurantId: '1',
     name: 'Udipi Chapati (6)',
     cost: 250,
     rating: 4.4,
@@ -43,6 +48,7 @@ const mockFoodItems = [
   },
   {
     id: 'f6',
+    restaurantId: '1',
     name: 'Egg Toast',
     cost: 400,
     rating: 4.4,
@@ -60,6 +66,10 @@ const RestaurantDetails = () => {
     costForTwo: 350
   }
 
+  const restaurantFood = mockFoodItems.filter(
+    eachFood => eachFood.restaurantId === id
+  )
+
   return (
     <div className="restaurant-details-page min-vh-100 d-flex flex-column">
       <Navbar />
@@ -67,7 +77,7 @@ const RestaurantDetails = () => {
         <RestaurantBanner restaurantData={restaurant} />
         <div className="container mt-5 mb-5 ps-3 pe-3">
           <ul className="food-items-list p-0 m-0 row">
-            {mockFoodItems.map(eachFood => (
+            {restaurantFood.map(eachFood => (
               <div className="col-12 col-lg-6 mb-2" key={eachFood.id}>
                 <FoodItem foodData={eachFood} />
               </div>

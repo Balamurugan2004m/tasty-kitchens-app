@@ -3,13 +3,15 @@ import "./index.css"
 
 const RestaurantBanner = ({ restaurantData }) => {
   const {
-    name = "",
-    cuisine = "",
-    location = "",
-    rating = 0,
-    costForTwo = 0,
-    imageUrl = "",
-  } = restaurantData || {}
+  name = "",
+  cuisine = "",
+  location = "",
+  costForTwo = 0,
+  imageUrl = "",
+  userRating = {}
+} = restaurantData || {}
+
+const { rating = 0, totalReviews = 0 } = userRating
 
   return (
     <div
