@@ -21,24 +21,26 @@ const RestaurantCard = (props) => {
 
   return (
     <Link to={`/restaurant/${id}`} className="text-decoration-none">
-      <div className="restaurant-card position-relative">
-        <img
-          src={imageUrl}
-          alt={name}
-          className="restaurant-image"
-        />
-        
-        <button 
-          className="favorite-button-home position-absolute border-0 bg-transparent shadow-none" 
-          onClick={onToggleFavorite}
-          aria-label={isCurrentlyFavorite ? "Unfavorite" : "Favorite"}
-        >
-          {isCurrentlyFavorite ? (
-            <FaStar className="favorite-star-icon filled" />
-          ) : (
-            <FaRegStar className="favorite-star-icon outline" />
-          )}
-        </button>
+      <div className="restaurant-card">
+        <div className="image-container position-relative">
+          <img
+            src={imageUrl}
+            alt={name}
+            className="restaurant-image"
+          />
+          
+          <button 
+            className="favorite-button-home position-absolute border-0 bg-transparent shadow-none" 
+            onClick={onToggleFavorite}
+            aria-label={isCurrentlyFavorite ? "Unfavorite" : "Favorite"}
+          >
+            {isCurrentlyFavorite ? (
+              <FaStar className="favorite-star-icon filled" />
+            ) : (
+              <FaRegStar className="favorite-star-icon outline" />
+            )}
+          </button>
+        </div>
 
         <div className="restaurant-details">
           <h2 className="restaurant-name">{name}</h2>

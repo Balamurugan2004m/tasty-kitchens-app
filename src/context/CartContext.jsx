@@ -25,11 +25,13 @@ export const CartProvider = ({ children }) => {
   }, [cartItems])
 
   // Get active restaurant ID from cart
-  const cartRestaurantId = cartItems.length > 0 ? cartItems[0].restaurantId : null
+  const cartRestaurantId = cartItems.length > 0 ? String(cartItems[0].restaurantId) : null
 
   // REQUEST ADD ITEM (Checks for Conflicts)
   const requestAddToCart = (food, restaurantName) => {
-    if (cartRestaurantId && cartRestaurantId !== food.restaurantId) {
+    const newRestaurantId = String(food.restaurantId)
+    
+    if (cartRestaurantId && cartRestaurantId !== newRestaurantId) {
       // Conflict detected!
       // Find the name of the restaurant currently in the cart
       const existingItem = cartItems[0]

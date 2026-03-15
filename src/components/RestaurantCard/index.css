@@ -18,6 +18,13 @@
   object-fit: cover;
   border-radius: 8px;
   flex-shrink: 0;
+  display: block;
+}
+
+.image-container {
+  width: 160px;
+  height: 100px;
+  flex-shrink: 0;
 }
 
 .restaurant-details {
@@ -63,10 +70,12 @@
 }
 
 .favorite-button-home {
-  top: 18px;
-  right: 18px;
+  top: 6px;
+  right: 6px;
   z-index: 10;
   transition: transform 0.2s;
+  line-height: 1;
+  padding: 0;
 }
 
 .favorite-star-icon {

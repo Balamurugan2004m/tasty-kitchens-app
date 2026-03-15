@@ -2,9 +2,9 @@ import "./index.css"
 
 const bannerImages = [
   "https://res.cloudinary.com/dmmfmktet/image/upload/v1773057862/Frame_7_lsu9rh.png",
-  "https://res.cloudinary.com/dmmfmktet/image/upload/v1773335231/Screenshot_2026-03-12_223643_nmr5ns.png",
-  "https://res.cloudinary.com/dmmfmktet/image/upload/v1773334668/Screenshot_2026-03-12_222701_cwvqy3.png",
-  "https://res.cloudinary.com/dmmfmktet/image/upload/v1773334968/Screenshot_2026-03-12_223202_izfmjd.png"
+  "https://res.cloudinary.com/dmmfmktet/image/upload/v1773569101/Screenshot_2026-03-12_223643_qogvaf.png",
+  "https://res.cloudinary.com/dmmfmktet/image/upload/v1773569321/Screenshot_2026-03-12_222701_nsjmme.png",
+  "https://res.cloudinary.com/dmmfmktet/image/upload/v1773569497/Screenshot_2026-03-12_223202_lyrsui.png"
 ]
 
 const HeroBanner = () => {
