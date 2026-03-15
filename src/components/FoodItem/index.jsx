@@ -1,24 +1,31 @@
-import { useState } from 'react'
+import { useContext } from 'react'
 import { FaStar } from 'react-icons/fa'
+import { CartContext } from '../../context/CartContext.jsx'
 import './index.css'
 
 const FoodItem = (props) => {
-  const { foodData } = props
-  const { name, cost, rating, imageUrl } = foodData
-  const [quantity, setQuantity] = useState(0)
+  const { foodData, restaurantName, restaurantId } = props
+  const { id, name, cost, rating, imageUrl } = foodData
+  
+  const { cartItems, requestAddToCart, increaseQuantity, decreaseQuantity } = useContext(CartContext)
+
+  // Derive quantity from global cart data
+  const cartItem = cartItems.find(item => item.id === id)
+  const quantity = cartItem ? cartItem.quantity : 0
 
   const onAdd = () => {
-    setQuantity(1)
+    requestAddToCart(
+      { id, name, price: cost, imageUrl, restaurantId, restaurantName }, 
+      restaurantName
+    )
   }
 
   const onDecrement = () => {
-    if (quantity > 0) {
-      setQuantity(prev => prev - 1)
-    }
+    decreaseQuantity(id)
   }
 
   const onIncrement = () => {
-    setQuantity(prev => prev + 1)
+    increaseQuantity(id)
   }
 
   return (

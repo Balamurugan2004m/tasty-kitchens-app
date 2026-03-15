@@ -1,0 +1,78 @@
+.cart-conflict-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.cart-conflict-modal {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 400px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  animation: modalPopIn 0.2s ease-out;
+}
+
+.conflict-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333333;
+}
+
+.icon-close {
+  cursor: pointer;
+  opacity: 0.6;
+}
+.icon-close:hover {
+  opacity: 1;
+}
+
+.conflict-message {
+  font-size: 15px;
+  color: #666666;
+  line-height: 1.5;
+}
+
+.conflict-btn {
+  padding: 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+}
+
+.conflict-btn-no {
+  background-color: #fff4ed;
+  color: #fc6414;
+  border: none;
+}
+.conflict-btn-no:hover {
+  background-color: #ffe3d1;
+  color: #ea5002;
+}
+
+.conflict-btn-replace {
+  background-color: #fc6414;
+  border: none;
+}
+.conflict-btn-replace:hover {
+  background-color: #ea5002;
+}
+
+@keyframes modalPopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
