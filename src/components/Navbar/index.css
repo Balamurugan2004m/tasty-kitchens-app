@@ -24,14 +24,11 @@
 }
 
 .nav-link.active {
-  color: #334155 !important;
+  color: #f7931e !important;
   font-weight: bold;
 }
 
-/* Cart Link Specifically Orange as in image */
-.cart-link {
-  color: #f7931e !important;
-}
+
 
 .logout-button {
   background-color: #f7931e !important;

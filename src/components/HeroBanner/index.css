@@ -2,22 +2,75 @@
   overflow: hidden;
 }
 
+.hero-carousel {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
 .hero-image {
-  max-height: 400px;
+  height: 400px;
   object-fit: cover;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: filter 0.3s ease;
 }
 
-.carousel-indicators-custom .dot {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  background-color: #cbd5e1;
+.hero-carousel:hover .hero-image {
+  filter: brightness(0.9);
+}
+
+/* Customizing Bootstrap Control Icons */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(255, 255, 255, 0.9);
+  background-image: none; /* We'll use a better arrow symbol or keep bootstrap's default with better color */
   border-radius: 50%;
-  margin: 0 5px;
-  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
 }
 
-.carousel-indicators-custom .dot.active {
-  background-color: #f7931e;
+.carousel-control-prev-icon::after,
+.carousel-control-next-icon::after {
+  content: '';
+  display: inline-block;
+  border: solid #333;
+  border-width: 0 2px 2px 0;
+  padding: 3px;
+}
+
+.carousel-control-prev-icon::after {
+  transform: rotate(135deg);
+  margin-left: 2px;
+}
+
+.carousel-control-next-icon::after {
+  transform: rotate(-45deg);
+  margin-right: 2px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 60px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hero-carousel:hover .carousel-control-prev,
+.hero-carousel:hover .carousel-control-next {
+  opacity: 1;
+}
+
+.carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-control-next:hover .carousel-control-next-icon {
+  background-color: #fff;
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .hero-image {
+    height: 250px;
+  }
 }
