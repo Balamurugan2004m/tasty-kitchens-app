@@ -40,8 +40,8 @@ const Profile = () => {
   const [addresses,setAddresses] = useState([
     {
       id:1,
-      address:"Chennai",
-      phone:"9876543210"
+      address:"TNWWHCL, sanatorium, Tambaram",
+      phone:"9600313559"
     }
   ])
 
