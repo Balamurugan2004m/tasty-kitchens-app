@@ -6,6 +6,7 @@ import Login from "./pages/Login"
 import SignUp from "./pages/SignUp"
 import EmptyCart from "./pages/EmptyCart"
 import RestaurantDetails from "./pages/RestaurantDetails"
+import Profile from './pages/Profile'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/payment-success" element={<PaymentSuccess />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/cart" element={<EmptyCart />} />
+      <Route path="/profile" element={<Profile />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   )

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './index.css'
-
+ 
 const Signup = () => {
     const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')

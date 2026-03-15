@@ -1,21 +1,18 @@
-body {
-  margin: 0;
-  overflow: hidden;
-}
-
 .signup-page-container {
   height: 100vh;
+  overflow: hidden;
   background-color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  min-height: 100vh;
 }
-
 .signup-content-wrapper {
   display: flex;
   flex-direction: column;
+  height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 /* Form Section */

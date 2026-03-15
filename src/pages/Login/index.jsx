@@ -38,11 +38,13 @@ const Login = () => {
         try {
             const response = await fetch(url, options)
             const data = await response.json()
+
             if (response.ok === true) {
                 onSubmitSuccess(data.jwt_token)
             } else {
-                onSubmitFailure(data.error_msg)
+                onSubmitFailure("Please enter a valid Username & Password")
             }
+
         } catch (error) {
             onSubmitFailure('Something went wrong. Please try again later.')
         }
@@ -56,9 +58,13 @@ const Login = () => {
     return (
         <div className="login-page-container">
             <div className="login-content-wrapper">
+
                 {/* Form Section */}
+
                 <div className="login-form-container">
+
                     <div className="login-card">
+
                         <div className="logo-container">
                             <img
                                 src="https://res.cloudinary.com/dmmfmktet/image/upload/v1773055421/3d30e43f-d664-464d-ac18-f113dfd80da5_zaqrzs.png"
@@ -71,10 +77,12 @@ const Login = () => {
                         <h1 className="login-heading">Login</h1>
 
                         <form className="login-form" onSubmit={onSubmitForm}>
+
                             <div className="input-container">
                                 <label className="input-label" htmlFor="username">
                                     USERNAME
                                 </label>
+
                                 <input
                                     type="text"
                                     id="username"
@@ -90,6 +98,7 @@ const Login = () => {
                                 <label className="input-label" htmlFor="password">
                                     PASSWORD
                                 </label>
+
                                 <input
                                     type="password"
                                     id="password"
@@ -103,26 +112,42 @@ const Login = () => {
 
                             {showError && <p className="error-message">{errorMsg}</p>}
 
-                            <button type="submit" className="login-button" disabled={isLoading}>
+                            <button
+                                type="submit"
+                                className="login-button"
+                                disabled={isLoading}
+                            >
                                 {isLoading ? 'Logging in...' : 'Login'}
                             </button>
+
                         </form>
+
                         <p className="signup-text">
-                            Don't have an account? <a href="/signup" className="signup-link">Sign Up</a>
+                            Don't have an account?
+                            <a href="/signup" className="signup-link"> Sign Up</a>
                         </p>
+
                     </div>
+
                 </div>
 
+
                 {/* Image Section */}
+
                 <div className="login-image-container">
+
                     <div className="image-wrapper">
+
                         <img
                             src="https://res.cloudinary.com/dmmfmktet/image/upload/v1773139144/ceff20e8367d1981f2a409a617ac848670d29c7e_awmcqd.jpg"
                             alt="website login"
                             className="login-image"
                         />
+
                     </div>
+
                 </div>
+
             </div>
         </div>
     )

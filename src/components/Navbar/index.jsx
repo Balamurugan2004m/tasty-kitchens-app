@@ -39,7 +39,10 @@ const Navbar = () => {
 
                 <div className="collapse navbar-collapse" id="navbarContent">
                     <div className="mobile-nav-wrapper d-lg-flex w-100 justify-content-between align-items-center">
+
                         <ul className="navbar-nav ms-auto align-items-center flex-row justify-content-center">
+
+                            {/* HOME */}
                             <li className="nav-item mx-2">
                                 <NavLink
                                     to="/"
@@ -50,6 +53,8 @@ const Navbar = () => {
                                     Home
                                 </NavLink>
                             </li>
+
+                            {/* CART */}
                             <li className="nav-item mx-2">
                                 <NavLink
                                     to="/cart"
@@ -60,6 +65,20 @@ const Navbar = () => {
                                     Cart
                                 </NavLink>
                             </li>
+
+                            {/* PROFILE (NEW) */}
+                            <li className="nav-item mx-2">
+                                <NavLink
+                                    to="/profile"
+                                    className={({ isActive }) =>
+                                        isActive ? "nav-link active" : "nav-link"
+                                    }
+                                >
+                                    Profile
+                                </NavLink>
+                            </li>
+
+                            {/* LOGOUT */}
                             <li className="nav-item mx-lg-3 mt-lg-0">
                                 <button
                                     type="button"
@@ -69,7 +88,9 @@ const Navbar = () => {
                                     Logout
                                 </button>
                             </li>
+
                         </ul>
+
                         <button
                             className="btn close-icon-btn d-lg-none p-0 border-0"
                             type="button"
@@ -78,6 +99,7 @@ const Navbar = () => {
                         >
                             <IoMdCloseCircle className="close-icon" />
                         </button>
+
                     </div>
                 </div>
 
