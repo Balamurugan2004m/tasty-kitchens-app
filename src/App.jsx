@@ -16,7 +16,7 @@ function App() {
       <Route path="/restaurant/:id" element={<RestaurantDetails />} />
       <Route path="/payment-success" element={<PaymentSuccess />} />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/cart" element={<EmptyCart />} />
+      <Route path="cart" element={<EmptyCart />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

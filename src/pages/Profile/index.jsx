@@ -32,7 +32,7 @@ const Profile = () => {
     address:""
   })
 
-  const [tempProfile,setTempProfile] = useState(profile)
+  const [tempProfile,setTempProfile] = useState({...profile})
   const [isEditing,setIsEditing] = useState(false)
 
   /* ADDRESS */
@@ -40,8 +40,8 @@ const Profile = () => {
   const [addresses,setAddresses] = useState([
     {
       id:1,
-      address:"TNWWHCL, sanatorium, Tambaram",
-      phone:"9600313559"
+      address:"Chennai",
+      phone:"9876543210"
     }
   ])
 
@@ -241,21 +241,26 @@ const updatePassword = () => {
 
                 {editingId === addr.id ? (
 
-                  <>
-                    <input
-                      defaultValue={addr.address}
-                      onChange={(e)=>addr.address=e.target.value}
-                    />
+                <>
+                  <input
+                    value={addr.address}
+                    onChange={(e)=>{
+                      const updated = addresses.map(a =>
+                        a.id === addr.id ? {...a, address:e.target.value} : a
+                      )
+                      setAddresses(updated)
+                    }}
+                  />
 
-                    <button
-                      className="save-btn"
-                      onClick={()=>saveAddress(addr.id,addr.address)}
-                    >
-                      Save
-                    </button>
-                  </>
+                  <button
+                    className="save-btn"
+                    onClick={()=>setEditingId(null)}
+                  >
+                    Save
+                  </button>
+                </>
 
-                ):(
+):(
                   <>
                     <p>{addr.address}</p>
                     <p>Phone: {addr.phone}</p>
@@ -445,10 +450,7 @@ const updatePassword = () => {
         )
 
 
-      case "Logout":
 
-        onClickLogout()
-        return null
 
 
       default:
@@ -462,7 +464,7 @@ const updatePassword = () => {
     <>
       <Navbar/>
 
-      <div className="profile-page container">
+      <div className="profile-page container-fluid">
 
         <div className="profile-header">
 
@@ -509,7 +511,13 @@ const updatePassword = () => {
                 className={`sidebar-item ${
                   active === item ? "active" : ""
                 }`}
-                onClick={()=>setActive(item)}
+                onClick={()=>{
+                  if(item === "Logout"){
+                    onClickLogout()
+                  }else{
+                    setActive(item)
+                  }
+                }}
               >
                 {item}
               </div>
