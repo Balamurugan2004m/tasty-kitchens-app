@@ -6,20 +6,22 @@ import Login from "./pages/Login"
 import SignUp from "./pages/SignUp"
 import EmptyCart from "./pages/EmptyCart"
 import RestaurantDetails from "./pages/RestaurantDetails"
-import Profile from './pages/Profile'
+import CartPage from "./pages/CartPage"
+import CartConflictModal from './components/CartConflictModal'
 
 function App() {
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/" element={<Home />} />
-      <Route path="/restaurant/:id" element={<RestaurantDetails />} />
-      <Route path="/payment-success" element={<PaymentSuccess />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="cart" element={<EmptyCart />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/restaurant/:id" element={<RestaurantDetails />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <CartConflictModal />
+    </>
   )
 }
 

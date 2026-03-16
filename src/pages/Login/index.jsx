@@ -64,7 +64,6 @@ const Login = () => {
                 <div className="login-form-container">
 
                     <div className="login-card">
-
                         <div className="logo-container">
                             <img
                                 src="https://res.cloudinary.com/dmmfmktet/image/upload/v1773055421/3d30e43f-d664-464d-ac18-f113dfd80da5_zaqrzs.png"
@@ -121,12 +120,9 @@ const Login = () => {
                             </button>
 
                         </form>
-
                         <p className="signup-text">
-                            Don't have an account?
-                            <a href="/signup" className="signup-link"> Sign Up</a>
+                            Don't have an account? <a href="/signup" className="signup-link">Sign Up</a>
                         </p>
-
                     </div>
 
                 </div>

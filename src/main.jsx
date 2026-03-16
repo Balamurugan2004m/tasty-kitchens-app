@@ -10,23 +10,17 @@ import { Toaster } from "react-hot-toast"
 import "./index.css"
 import App from "./App.jsx"
 
+import { CartProvider } from "./context/CartContext.jsx"
+import { FavoritesProvider } from "./context/FavoritesContext.jsx"
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-
-      <App />
-
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          style:{
-            background:"#1e293b",
-            color:"#fff",
-            borderRadius:"10px"
-          }
-        }}
-      />
-
+      <CartProvider>
+        <FavoritesProvider>
+          <App />
+        </FavoritesProvider>
+      </CartProvider>
     </BrowserRouter>
   </StrictMode>
 )

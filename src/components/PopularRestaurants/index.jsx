@@ -1,15 +1,21 @@
 import { useState } from "react"
-import { BsFilterLeft } from "react-icons/bs"
+import { BsFilterLeft, BsSearch } from "react-icons/bs"
 import { MdOutlineKeyboardArrowDown } from "react-icons/md"
 import { FaCheck } from "react-icons/fa"
 import RestaurantCard from "../RestaurantCard"
-import { restaurantsData } from "../../constants"
+import { restaurantsData, mockFoodItems } from "../../constants"
 import "./index.css"
 
 const PopularRestaurants = ({ page, itemsPerPage, setPage }) => {
 
   const [sortType, setSortType] = useState("Highest")
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value)
+    setPage(1) // reset pagination when searching
+  }
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen)
@@ -22,7 +28,29 @@ const PopularRestaurants = ({ page, itemsPerPage, setPage }) => {
   }
 
   // sorting restaurants
-  const sortedRestaurants = [...restaurantsData].sort((a, b) => {
+
+  const filteredRestaurants = restaurantsData.filter(restaurant => {
+    const searchLower = searchQuery.toLowerCase()
+    
+    // Check restaurant name
+    const matchesName = restaurant.name.toLowerCase().includes(searchLower)
+    
+    // Check cuisine
+    const matchesCuisine = restaurant.cuisine.toLowerCase().includes(searchLower)
+    
+    // Check location (hotel name)
+    const matchesLocation = restaurant.location.toLowerCase().includes(searchLower)
+    
+    // Check dishes
+    const restaurantDishes = mockFoodItems.filter(dish => dish.restaurantId === restaurant.id)
+    const matchesDish = restaurantDishes.some(dish => 
+      dish.name.toLowerCase().includes(searchLower)
+    )
+    
+    return matchesName || matchesCuisine || matchesLocation || matchesDish
+  })
+
+  const sortedRestaurants = [...filteredRestaurants].sort((a, b) => {
     const ratingA = a.userRating?.rating || 0
     const ratingB = b.userRating?.rating || 0
 
@@ -51,11 +79,24 @@ const PopularRestaurants = ({ page, itemsPerPage, setPage }) => {
               Select Your favourite restaurant special dish and make your day happy...
             </p>
 
-            <div className="sort-container position-relative">
-              <div
-                className="sort-button d-flex align-items-center"
-                onClick={toggleDropdown}
-              >
+            <div className="d-flex align-items-center gap-3 w-100 flex-md-nowrap search-sort-wrapper">
+              
+              <div className="search-bar-container flex-grow-1 position-relative">
+                <BsSearch className="search-icon position-absolute" />
+                <input 
+                  type="search" 
+                  className="form-control rounded search-input" 
+                  placeholder="Search for restaurants..." 
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                />
+              </div>
+
+              <div className="sort-container position-relative">
+                <div
+                  className="sort-button d-flex align-items-center"
+                  onClick={toggleDropdown}
+                >
                 <BsFilterLeft className="filter-icon me-2" />
                 <span className="sort-label me-1">Sort by</span>
                 <span className="selected-sort me-1">{sortType}</span>
@@ -84,10 +125,12 @@ const PopularRestaurants = ({ page, itemsPerPage, setPage }) => {
                 </ul>
               )}
             </div>
+
           </div>
         </div>
+      </div>
 
-        <hr className="header-divider" />
+      <hr className="header-divider" />
 
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
