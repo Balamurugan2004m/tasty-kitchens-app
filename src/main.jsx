@@ -12,13 +12,26 @@ import App from "./App.jsx"
 
 import { CartProvider } from "./context/CartContext.jsx"
 import { FavoritesProvider } from "./context/FavoritesContext.jsx"
+import { OrdersProvider } from "./context/OrdersContext.jsx"
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <CartProvider>
         <FavoritesProvider>
-          <App />
+          <OrdersProvider>
+            <App />
+            <Toaster
+              position="top-right"
+              toastOptions={{
+                style: {
+                  background: "#1e293b",
+                  color: "#fff",
+                  borderRadius: "10px"
+                }
+              }}
+            />
+          </OrdersProvider>
         </FavoritesProvider>
       </CartProvider>
     </BrowserRouter>

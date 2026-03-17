@@ -1,9 +1,11 @@
 import Navbar from "../../components/Navbar"
 import Footer from "../../components/Footer"
-import {useState} from 'react'
+import {useState, useContext} from 'react'
 import {useNavigate} from "react-router-dom"
 import Cookies from "js-cookie"
 import toast from "react-hot-toast"
+import { OrdersContext } from "../../context/OrdersContext"
+import { MdCameraAlt } from 'react-icons/md'
 import './index.css'
 
 const menuItems = [
@@ -19,31 +21,23 @@ const menuItems = [
 const Profile = () => {
 
   const navigate = useNavigate()
+  const { orders, addresses, addAddress, deleteAddress, updateAddress } = useContext(OrdersContext)
 
   const [active,setActive] = useState("Account Information")
 
   /* PROFILE */
 
   const [profile,setProfile] = useState({
-    name:"Dhevadharshini",
-    email:"dheva@email.com",
+    name:"User",
+    email:"user@email.com",
     phone:"",
     memberSince:"2026",
-    address:""
+    address:"",
+    avatar: "https://i.pravatar.cc/300?img=12"
   })
 
   const [tempProfile,setTempProfile] = useState({...profile})
   const [isEditing,setIsEditing] = useState(false)
-
-  /* ADDRESS */
-
-  const [addresses,setAddresses] = useState([
-    {
-      id:1,
-      address:"Chennai",
-      phone:"9876543210"
-    }
-  ])
 
   const [newAddress,setNewAddress] = useState("")
   const [newPhone,setNewPhone] = useState("")
@@ -69,36 +63,31 @@ const Profile = () => {
     setIsEditing(false)
   }
 
+  /* IMAGE UPLOAD */
+
+  const onUploadImage = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setProfile((prev) => ({ ...prev, avatar: reader.result }))
+        setTempProfile((prev) => ({ ...prev, avatar: reader.result }))
+        toast.success("Profile Image Updated!")
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
   /* ADDRESS FUNCTIONS */
 
-  const addAddress = () => {
-
+  const onAddAddress = () => {
     if(newAddress === "") return
-
-    const newItem = {
-      id:Date.now(),
-      address:newAddress,
-      phone:newPhone
-    }
-
-    setAddresses([...addresses,newItem])
+    addAddress(newAddress, newPhone)
     setNewAddress("")
     setNewPhone("")
+    toast.success("Address Added!")
   }
 
-  const deleteAddress = (id) => {
-    setAddresses(addresses.filter(a => a.id !== id))
-  }
-
-  const saveAddress = (id,address) => {
-
-    const updated = addresses.map(a =>
-      a.id === id ? {...a,address} : a
-    )
-
-    setAddresses(updated)
-    setEditingId(null)
-  }
 
 /* PASSWORD UPDATE */
 
@@ -207,23 +196,63 @@ const updatePassword = () => {
 
 
       case "My Orders":
-
         return(
-
-          <div className="orders-empty">
-
-            <img
-              src="https://res.cloudinary.com/dy7ogboi4/image/upload/v1773567674/NoOrder_dnmlbi.png"
-              alt="no orders"
-              className="no-orders-img"
-            />
-
-            <h3>No Orders Yet</h3>
-
-            <p>You haven't placed any order yet</p>
-
+          <div className="orders-container">
+            {orders.length === 0 ? (
+              <div className="orders-empty">
+                <img
+                  src="https://res.cloudinary.com/dy7ogboi4/image/upload/v1773567674/NoOrder_dnmlbi.png"
+                  alt="no orders"
+                  className="no-orders-img"
+                />
+                <h3>No Orders Yet</h3>
+                <p>You haven't placed any order yet</p>
+                <button 
+                  className="btn btn-warning text-white mt-3"
+                  onClick={() => navigate('/')}
+                >
+                  Order Now
+                </button>
+              </div>
+            ) : (
+              <div className="orders-list">
+                <h4 className="section-title mb-4">Past Orders</h4>
+                {orders.map(order => (
+                  <div key={order.id} className="order-history-card">
+                    <div className="order-history-header">
+                      <span className="order-id">#{order.id}</span>
+                      <span className="order-date">{order.date}</span>
+                    </div>
+                    <div className="order-history-body">
+                      <div className="order-items-scroll">
+                        {order.items.map(item => (
+                          <div key={item.id} className="order-item-mini">
+                            <span className="item-name">{item.name} x {item.quantity}</span>
+                            <span className="item-price">₹{(item.price * item.quantity).toFixed(2)}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <hr className="my-2" />
+                      <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                          <p className="mb-0 small text-muted">Delivery Address:</p>
+                          <p className="mb-0 small">{order.address}</p>
+                        </div>
+                        <div className="text-end">
+                          <p className="mb-0 small text-muted">Total:</p>
+                          <span className="fw-bold text-success">₹{order.total.toFixed(2)}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="order-history-footer">
+                      <span className="order-status-badge">{order.status}</span>
+                      <span className="payment-method-badge">{order.paymentMethod}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-
         )
 
 
@@ -245,10 +274,7 @@ const updatePassword = () => {
                   <input
                     value={addr.address}
                     onChange={(e)=>{
-                      const updated = addresses.map(a =>
-                        a.id === addr.id ? {...a, address:e.target.value} : a
-                      )
-                      setAddresses(updated)
+                      updateAddress(addr.id, e.target.value)
                     }}
                   />
 
@@ -292,7 +318,7 @@ const updatePassword = () => {
 
               <button
                 className="add-address-btn"
-                onClick={addAddress}
+                onClick={onAddAddress}
               >
                 ADD NEW ADDRESS
               </button>
@@ -470,11 +496,23 @@ const updatePassword = () => {
 
           <div className="profile-info">
 
-            <img
-              src="https://res.cloudinary.com/dmmfmktet/image/upload/v1773055421/3d30e43f-d664-464d-ac18-f113dfd80da5_zaqrzs.png"
-              alt="profile"
-              className="profile-avatar"
-            />
+            <div className="avatar-container" onClick={() => document.getElementById('avatarInput').click()}>
+              <img
+                src={profile.avatar}
+                alt="profile"
+                className="profile-avatar"
+              />
+              <div className="upload-overlay">
+                <MdCameraAlt className="camera-icon" />
+              </div>
+              <input
+                type="file"
+                id="avatarInput"
+                className="d-none"
+                accept="image/*"
+                onChange={onUploadImage}
+              />
+            </div>
 
             <div>
               <h3 className="profile-name">
