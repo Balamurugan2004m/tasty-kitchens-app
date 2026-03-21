@@ -4,7 +4,8 @@ import RestaurantBanner from '../../components/RestaurantBanner'
 import FoodItem from '../../components/FoodItem'
 import Footer from '../../components/Footer'
 import CartPopupBanner from '../../components/CartPopupBanner'
-import { restaurantsData, mockFoodItems } from '../../constants'
+import { restaurantsData } from '../../constants'
+import { mockFoodItems } from '../../FoodItems'
 
 const RestaurantDetails = () => {
   const { id } = useParams()

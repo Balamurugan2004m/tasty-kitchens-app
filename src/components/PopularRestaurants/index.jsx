@@ -3,7 +3,8 @@ import { BsFilterLeft, BsSearch } from "react-icons/bs"
 import { MdOutlineKeyboardArrowDown } from "react-icons/md"
 import { FaCheck } from "react-icons/fa"
 import RestaurantCard from "../RestaurantCard"
-import { restaurantsData, mockFoodItems } from "../../constants"
+import { restaurantsData } from "../../constants"
+import { mockFoodItems } from "../../FoodItems"
 import "./index.css"
 
 const PopularRestaurants = ({ page, itemsPerPage, setPage }) => {
