@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react"
+import Cookies from "js-cookie"
 
 export const OrdersContext = createContext()
 
@@ -61,10 +62,31 @@ export const OrdersProvider = ({ children }) => {
     )
   }
 
+  const userRole = Cookies.get('user_role') || 'USER'
+  const userEmail = Cookies.get('user_email') || ''
+  
+  // Mock administrative mapping for demo
+  const adminRestaurantId = '1' // admin@restaurant.com -> McDonald's
+
+  const filteredOrders = orders.filter(order => {
+    if (userRole === 'SUPER_ADMIN') {
+        return true // Sees all orders
+    }
+    if (userRole === 'ADMIN') {
+        return order.restaurantId === adminRestaurantId
+    }
+    // Regular User: Sees their own orders
+    // For legacy orders without userEmail, we show them to the user if they were the one who placed them (on this browser)
+    return order.userEmail === userEmail || !order.userEmail
+  })
+
   return (
     <OrdersContext.Provider
       value={{
-        orders,
+        orders: filteredOrders,
+        allOrders: orders,
+        userRole,
+        userEmail,
         addOrder,
         addresses,
         addAddress,

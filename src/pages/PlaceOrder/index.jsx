@@ -5,6 +5,7 @@ import { OrdersContext } from '../../context/OrdersContext'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import toast from 'react-hot-toast'
+import Cookies from 'js-cookie'
 import './index.css'
 
 const PlaceOrder = () => {
@@ -51,7 +52,9 @@ const PlaceOrder = () => {
             address: finalAddress,
             phone: finalPhone,
             paymentMethod: 'Cash on Delivery',
-            status: 'Confirmed'
+            status: 'Confirmed',
+            restaurantId: cartItems[0]?.restaurantId || '',
+            userEmail: Cookies.get('user_email') || ''
         }
 
         addOrder(orderDetails)

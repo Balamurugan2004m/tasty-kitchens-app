@@ -21,12 +21,8 @@
 
 @media screen and (min-width: 768px) {
   .cart-content-container {
-    background-color: #ffffff;
-    padding: 50px 0;
-    border-radius: 4px;
-    border: 1px solid #e1e8f2;
-    /* Subtle light blueish gray border */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    background-color: transparent;
+    padding: 30px 0;
   }
 }
 
@@ -49,7 +45,7 @@
 .header-item {
   flex: 2;
   text-align: left;
-  padding-left: 80px;
+  padding-left: 24px;
 }
 
 .header-quantity {
@@ -60,7 +56,7 @@
 .header-price {
   flex: 1;
   text-align: right;
-  padding-right: 80px;
+  padding-right: 24px;
 }
 
 .cart-items-list {
@@ -71,15 +67,27 @@
 
 .cart-item-row {
   display: flex;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
   align-items: center;
+  background-color: #ffffff;
+  padding: 20px 0;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f8fafc;
+  transition: all 0.3s ease;
+}
+
+.cart-item-row:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border-color: #e2e8f0;
 }
 
 .item-details {
   flex: 2;
   display: flex;
   align-items: center;
-  padding-left: 80px;
+  padding-left: 24px;
 }
 
 .cart-item-image {
@@ -138,7 +146,7 @@
 .item-price-container {
   flex: 1;
   text-align: right;
-  padding-right: 80px;
+  padding-right: 24px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -153,7 +161,7 @@
 .cart-divider {
   border: none;
   border-top: 2px dashed #e2e8f0;
-  margin: 10px 80px 40px 80px;
+  margin: 10px 24px 40px 24px;
   opacity: 1;
 }
 
@@ -161,8 +169,8 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding-left: 80px;
-  padding-right: 80px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .order-total-label {

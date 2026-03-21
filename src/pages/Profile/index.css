@@ -73,9 +73,11 @@
     }
     
     .profile-name{
-    margin:0;
-    font-size:20px;
-    color:#1e293b;
+      margin:0;
+      font-size:24px;
+      font-weight: 700;
+      color:#1e293b;
+      letter-spacing: -0.5px;
     }
     
     .profile-email{
