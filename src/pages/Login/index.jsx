@@ -139,7 +139,7 @@ const Login = () => {
             <div className="login-content-wrapper">
 
                 {/* Form Section */}
-                <div className="login-form-container">
+                <div className="login-form-container mt-3 mb-3">
 
                     <div className={`login-card ${isShake ? 'shake-animation' : ''}`}>
                         <div className="logo-container">
