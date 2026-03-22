@@ -21,7 +21,7 @@ const menuItems = [
 const Profile = () => {
 
   const navigate = useNavigate()
-  const { orders, addresses, addAddress, deleteAddress, updateAddress } = useContext(OrdersContext)
+  const { orders, userRole, userEmail, addresses, addAddress, deleteAddress, updateAddress } = useContext(OrdersContext)
 
   const [active,setActive] = useState("Account Information")
 
@@ -216,7 +216,11 @@ const updatePassword = () => {
               </div>
             ) : (
               <div className="orders-list">
-                <h4 className="section-title mb-4">Past Orders</h4>
+                <h4 className="section-title mb-4">
+                  {userRole === 'SUPER_ADMIN' && 'Global System Orders'}
+                  {userRole === 'ADMIN' && 'Restaurant Sales Log (Store #1)'}
+                  {userRole === 'USER' && 'My Past Orders'}
+                </h4>
                 {orders.map(order => (
                   <div key={order.id} className="order-history-card">
                     <div className="order-history-header">
@@ -514,15 +518,17 @@ const updatePassword = () => {
               />
             </div>
 
-            <div>
-              <h3 className="profile-name">
-                {profile.name}
-              </h3>
+              <div>
+                <div className="d-flex align-items-center mb-1">
+                  <h3 className="profile-name mb-0 me-2">
+                    {profile.name}
+                  </h3>
+                </div>
 
-              <p className="profile-email">
-                {profile.email}
-              </p>
-            </div>
+                <p className="profile-email">
+                  {userEmail || profile.email}
+                </p>
+              </div>
 
           </div>
 
