@@ -1,7 +1,27 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, Navigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
+import { loginAPI } from '../../services/api'
 import './index.css'
+
+const parseJwt = (token) => {
+  try {
+    let base64Url = token.split('.')[1];
+    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const pad = base64.length % 4;
+    if (pad) {
+      if (pad === 1) throw new Error('InvalidLengthError');
+      base64 += new Array(5 - pad).join('=');
+    }
+    const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+  } catch (e) {
+    console.error("JWT Parse Error", e);
+    return null;
+  }
+};
 
 const EmailIcon = () => (
     <svg className="left-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -85,47 +105,58 @@ const Login = () => {
         setIsLoading(true)
         setShowError(false)
 
-        if (role === 'ADMIN') {
-            setTimeout(() => {
-                if (email === 'admin@restaurant.com' && password === 'admin123') {
-                    onSubmitSuccess('mock_admin_token')
-                } else {
-                    onSubmitFailure("Invalid Restaurant Admin Credentials (try: admin@restaurant.com / admin123)")
-                }
-            }, 1000)
-            return
-        }
+        // Removed the mock timeouts so all selected roles pass through the real API
 
-        if (role === 'SUPER_ADMIN') {
-            setTimeout(() => {
-                if (email === 'owner@tastykitchens.com' && password === 'superadmin123') {
-                    onSubmitSuccess('mock_superadmin_token')
-                } else {
-                    onSubmitFailure("Invalid System Owner Credentials (try: owner@tastykitchens.com / superadmin123)")
-                }
-            }, 1000)
-            return
-        }
-
-        const userDetails = { username: email, password }
-        const url = 'https://apis.ccbp.in/login'
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(userDetails),
-        }
-
+        // Use the selected role as well, backend might validate it.
+        const userDetails = { Email: email, Password: password, Role: role }
+        
         try {
-            const response = await fetch(url, options)
-            const data = await response.json()
+            const data = await loginAPI(userDetails)
+            
+            // Ensure the backend returns `token` or similar.
+            const token = data.token || data.jwt_token || data.jwtToken;
+            let actualRole = null;
+            
+            if (token) {
+                const decodedToken = parseJwt(token);
+                if (!decodedToken) {
+                    onSubmitFailure("Invalid security token received. Login failed.");
+                    return;
+                }
 
-            if (response.ok === true) {
-                onSubmitSuccess(data.jwt_token)
+                actualRole = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] 
+                          || decodedToken.role 
+                          || decodedToken.Role;
+                
+                if (!actualRole) {
+                    onSubmitFailure("Security token is missing role claims. Login failed.");
+                    return;
+                }
+                
+                // Determine if backend role matches selected UI role
+                if (actualRole) {
+                    const normalizedActual = actualRole.toUpperCase().replace(/_/g, '');
+                    const normalizedSelected = role.toUpperCase().replace(/_/g, '');
+                    
+                    // Reject cross-role tab login attempts
+                    if (normalizedActual !== normalizedSelected) {
+                        let expectedTab = 'User';
+                        if (normalizedActual.includes('ADMIN')) {
+                            expectedTab = normalizedActual.includes('SUPER') ? 'Super Admin' : 'Admin';
+                        }
+                        
+                        onSubmitFailure(`Access Denied. Your account is registered as ${expectedTab}. Please switch to the ${expectedTab} tab.`);
+                        return;
+                    }
+                }
+                
+                onSubmitSuccess(token)
             } else {
-                onSubmitFailure("Please enter a valid Email & Password")
+                onSubmitFailure("Invalid response from server (No token received)")
             }
 
         } catch (error) {
-            onSubmitFailure('Something went wrong. Please try again later.')
+            onSubmitFailure(error.message || 'Something went wrong. Please try again later.')
         }
     }
 

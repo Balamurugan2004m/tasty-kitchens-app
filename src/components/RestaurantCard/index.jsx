@@ -7,8 +7,7 @@ import './index.css'
 
 const RestaurantCard = (props) => {
   const { restaurantData } = props
-  const { id, imageUrl, name, cuisine, userRating } = restaurantData
-  const { rating, totalReviews } = userRating
+  const { id, imageUrl, name, cuisine, rating, totalReviews } = restaurantData
 
   const { isFavorite, toggleFavorite } = useContext(FavoritesContext)
   const isCurrentlyFavorite = isFavorite(id)
