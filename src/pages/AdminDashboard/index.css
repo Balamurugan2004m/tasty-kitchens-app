@@ -173,13 +173,26 @@
 
 .admin-form-container.glass-effect {
     background: #ffffff;
-    padding: 40px;
+    padding: 30px 40px;
     border-radius: 16px;
-    width: 90%;
-    max-width: 550px;
+    width: 95%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     animation: fadeInScale 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     border: 1px solid rgba(255, 255, 255, 0.5);
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+}
+
+.admin-form-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.admin-form-container::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 10px;
 }
 
 .admin-form-title {
@@ -189,9 +202,12 @@
 
 .custom-input-group label {
     font-size: 0.85rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.5rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    display: flex;
+    align-items: flex-end;
+    min-height: 2.5rem; /* Ensures alignment even with 2-line labels */
 }
 
 .admin-input {
@@ -211,8 +227,47 @@
         opacity: 0;
         transform: scale(0.95) translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: scale(1) translateY(0);
+    }
+}
+
+.tab-switcher button {
+    border: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+}
+
+.tab-switcher .btn-premium {
+    box-shadow: 0 4px 10px rgba(247, 147, 30, 0.25);
+}
+
+.tab-switcher .btn-light {
+    color: #64748b;
+    background: transparent;
+}
+
+.tab-switcher .btn-light:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+/* Responsive Table */
+@media (max-width: 767px) {
+    .premium-header-card {
+        padding: 1.5rem !important;
+        text-align: center;
+    }
+
+    .tab-switcher {
+        width: 100% !important;
+        justify-content: center;
+    }
+
+    .status-header {
+        font-size: 0.7rem;
     }
 }

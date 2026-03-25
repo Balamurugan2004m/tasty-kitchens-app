@@ -83,7 +83,7 @@ const Navbar = () => {
                             {(userRole === 'ADMIN' || userRole === 'SUPER_ADMIN') && (
                                 <li className="nav-item mx-2">
                                     <NavLink
-                                        to="/admin/fooditems"
+                                        to="/admin"
                                         className={({ isActive }) =>
                                             isActive ? "nav-link active fw-bold text-success" : "nav-link text-success"
                                         }
