@@ -1,12 +1,19 @@
 import { Navigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
-const ProtectedRoute = (props) => {
+const ProtectedRoute = ({ children, allowedRoles }) => {
     const token = Cookies.get('jwt_token')
+    const userRole = Cookies.get('user_role')
+
     if (token === undefined) {
         return <Navigate to="/login" />
     }
-    return props.children
+
+    if (allowedRoles && !allowedRoles.includes(userRole)) {
+        return <Navigate to="/" />
+    }
+
+    return children
 }
 
 export default ProtectedRoute

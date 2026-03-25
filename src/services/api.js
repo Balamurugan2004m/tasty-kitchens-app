@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 
 const BASE_URL = '/api';
 
-// Helper to get auth header
+
 const getAuthHeaders = () => {
     const token = Cookies.get('jwt_token');
     return {
@@ -11,7 +11,7 @@ const getAuthHeaders = () => {
     };
 };
 
-// HELPER FOR UPLOADS (FormData)
+
 const getUploadHeaders = () => {
     const token = Cookies.get('jwt_token');
     return {
