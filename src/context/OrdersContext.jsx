@@ -79,12 +79,19 @@ export const OrdersProvider = ({ children }) => {
     // For legacy orders without userEmail, we show them to the user if they were the one who placed them (on this browser)
     return order.userEmail === userEmail || !order.userEmail
   })
-
+  const updateOrderStatus = (orderId, newStatus) => {
+    const updated = orders.map(order =>
+      order.id === orderId ? { ...order, status: newStatus } : order
+    )
+  
+    setOrders(updated)
+  }
   return (
     <OrdersContext.Provider
       value={{
         orders: filteredOrders,
         allOrders: orders,
+        setOrders, 
         userRole,
         userEmail,
         addOrder,

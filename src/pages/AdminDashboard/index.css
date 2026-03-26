@@ -270,4 +270,713 @@
     .status-header {
         font-size: 0.7rem;
     }
+    
 }
+/* ============================= */
+/* 🔥 ORDERS TABLE STYLES */
+/* ============================= */
+
+/* Order table header */
+.admin-table th {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Order rows */
+.admin-table td {
+    font-size: 0.95rem;
+    vertical-align: middle;
+}
+
+/* Order ID highlight */
+.admin-table td:first-child {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+/* Address (soft grey like existing theme) */
+.admin-table td:nth-child(4) {
+    max-width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #64748b;
+}
+
+/* Amount (same success green style already used) */
+.admin-table td:nth-child(6) {
+    font-weight: 700;
+    color: #059669;
+}
+
+/* ============================= */
+/* 🔥 STATUS BADGES */
+/* ============================= */
+
+.order-status {
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* Placed → use premium orange theme */
+.status-placed {
+    background-color: #fff7ed;
+    color: #f7931e;
+}
+
+/* Preparing → reuse blue from edit button */
+.status-preparing {
+    background-color: #eff6ff;
+    color: #3b82f6;
+}
+
+/* Delivered → reuse veg green */
+.status-delivered {
+    background-color: #d1fae5;
+    color: #059669;
+}
+
+/* Cancelled → reuse delete red */
+.status-cancelled {
+    background-color: #fef2f2;
+    color: #ef4444;
+}
+
+/* ============================= */
+/* 🔥 ROW HOVER */
+/* ============================= */
+
+.admin-table tr:hover {
+    background-color: #fffaf0; /* already used hover tone */
+}
+
+/* ============================= */
+/* 🔥 EMPTY STATE */
+/* ============================= */
+
+.no-orders {
+    text-align: center;
+    padding: 60px 0;
+    color: #94a3b8;
+    font-size: 1rem;
+}
+/* 🔥 S.NO ONLY FOR ORDERS TABLE */
+
+.order-serial {
+    width: 60px;
+    text-align: center;
+    font-weight: 600;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+/* 🔥 FORCE CENTER ONLY S.NO */
+
+th.order-serial,
+td.order-serial {
+    text-align: center !important;
+}
+/* Admin Dashboard CSS */
+.admin-page-wrapper {
+    background-color: #f4f6f8;
+    position: relative;
+}
+
+.custom-container {
+    max-width: 1200px;
+}
+
+/* Header Premium Card */
+.premium-header-card {
+    background: linear-gradient(135deg, #ffffff 0%, #fefcfb 100%);
+    border-left: 5px solid #f7931e;
+}
+
+.admin-title {
+    font-size: 1.8rem;
+    letter-spacing: -0.5px;
+}
+
+/* Premium Primary Button */
+.btn-premium {
+    background: linear-gradient(135deg, #f7931e 0%, #e8800c 100%);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(247, 147, 30, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-premium:hover {
+    background: linear-gradient(135deg, #e8800c 0%, #cc7000 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(247, 147, 30, 0.4);
+}
+
+.btn-outline-premium {
+    border: 2px solid #f7931e;
+    color: #f7931e;
+    background: transparent;
+    font-weight: 600;
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-premium:hover {
+    background: #f7931e;
+    color: white;
+}
+
+/* Spinner */
+.premium-spinner {
+    color: #f7931e;
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Table Styles */
+.table-wrapper {
+    border: 1px solid #edf2f7;
+}
+
+.admin-table thead th {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #edf2f7;
+    background-color: #ffffff;
+}
+
+.table-row-hover {
+    transition: background-color 0.2s ease;
+}
+
+.table-row-hover:hover {
+    background-color: #fffaf0 !important;
+}
+
+.table-row-hover td {
+    vertical-align: middle;
+    border-bottom: 1px solid #f0f4f8;
+}
+
+/* Image */
+.img-container {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+}
+
+.admin-food-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item-name {
+    font-size: 1.05rem;
+}
+
+/* Badges */
+.type-badge {
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.badge-veg {
+    background-color: #d1fae5;
+    color: #059669;
+}
+
+.badge-non-veg {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+.rating-badge {
+    background-color: #fffbeb;
+    color: #d97706;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+/* Action Buttons */
+.action-btn {
+    border: none;
+    background: transparent;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.edit-btn {
+    color: #3b82f6;
+    background-color: #eff6ff;
+}
+
+.edit-btn:hover {
+    background-color: #bfdbfe;
+    transform: translateY(-2px);
+}
+
+.delete-btn {
+    color: #ef4444;
+    background-color: #fef2f2;
+}
+
+.delete-btn:hover {
+    background-color: #fecaca;
+    transform: translateY(-2px);
+}
+
+/* Modal form styles */
+.admin-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050;
+    backdrop-filter: blur(8px);
+}
+
+.admin-form-container.glass-effect {
+    background: #ffffff;
+    padding: 30px 40px;
+    border-radius: 16px;
+    width: 95%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    animation: fadeInScale 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+}
+
+.admin-form-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.admin-form-container::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 10px;
+}
+
+.admin-form-title {
+    font-size: 1.5rem;
+    color: #0f172a;
+}
+
+.custom-input-group label {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: flex-end;
+    min-height: 2.5rem; /* Ensures alignment even with 2-line labels */
+}
+
+.admin-input {
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    padding: 0.6rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.admin-input:focus {
+    border-color: #f7931e;
+    box-shadow: 0 0 0 4px rgba(247, 147, 30, 0.1);
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.tab-switcher button {
+    border: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+}
+
+.tab-switcher .btn-premium {
+    box-shadow: 0 4px 10px rgba(247, 147, 30, 0.25);
+}
+
+.tab-switcher .btn-light {
+    color: #64748b;
+    background: transparent;
+}
+
+.tab-switcher .btn-light:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+/* Responsive Table */
+@media (max-width: 767px) {
+    .premium-header-card {
+        padding: 1.5rem !important;
+        text-align: center;
+    }
+
+    .tab-switcher {
+        width: 100% !important;
+        justify-content: center;
+    }
+
+    .status-header {
+        font-size: 0.7rem;
+    }
+    
+}
+/* ============================= */
+/* 🔥 ORDERS TABLE STYLES */
+/* ============================= */
+
+/* Order table header */
+.admin-table th {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    
+}
+
+/* Order rows */
+.admin-table td {
+    font-size: 0.95rem;
+    vertical-align: middle;
+}
+
+/* Order ID highlight */
+.admin-table td:first-child {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+/* Address (soft grey like existing theme) */
+.admin-table td:nth-child(4) {
+    max-width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #64748b;
+}
+
+/* Amount (same success green style already used) */
+.admin-table td:nth-child(6) {
+    font-weight: 700;
+    color: #059669;
+}
+
+/* ============================= */
+/* 🔥 STATUS BADGES */
+/* ============================= */
+
+.order-status {
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* Placed → use premium orange theme */
+.status-placed {
+    background-color: #fff7ed;
+    color: #f7931e;
+}
+
+/* Preparing → reuse blue from edit button */
+.status-preparing {
+    background-color: #eff6ff;
+    color: #3b82f6;
+}
+
+/* Delivered → reuse veg green */
+.status-delivered {
+    background-color: #d1fae5;
+    color: #059669;
+}
+
+
+/* Cancelled → reuse delete red */
+.status-cancelled {
+    background-color: #fef2f2;
+    color: #ef4444;
+}
+
+/* ============================= */
+/* 🔥 ROW HOVER */
+/* ============================= */
+
+.admin-table tr:hover {
+    background-color: #fffaf0; /* already used hover tone */
+}
+.admin-table tr {
+    background-color: #5e5b5b;
+}
+/* ============================= */
+/* 🔥 EMPTY STATE */
+/* ============================= */
+.admin-table td:first-child:not(.order-serial) {
+    font-weight: 600;
+    color: #0f172a;
+}
+.no-orders {
+    text-align: center;
+    padding: 60px 0;
+    color: #94a3b8;
+    font-size: 1rem;
+}
+.order-serial {
+    padding-left: 1.5rem; /* same as ps-4 */
+    text-align: left;
+    font-weight: 600;
+}
+
+.order-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  .order-modal {
+    background: rgb(255, 255, 255);
+    padding: 25px;
+    border-radius: 12px;
+    width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  .status-badge {
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  
+  .status-placed {
+    background: #fef3c7;
+    color: #d97706;
+  }
+  
+  .status-preparing {
+    background: #dbeafe;
+    color: #2563eb;
+  }
+  
+  .status-delivered {
+    background: #d1fae5;
+    color: #059669;
+  }
+  
+  .status-cancelled {
+    background: #fee2e2;
+    color: #dc2626;
+  }
+  
+ 
+  
+  .item-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+ 
+  
+  .item-name {
+    font-weight: 600;
+  }
+  
+  .item-qty {
+    color: gray;
+  }
+  .order-title {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  
+  /* TOP ROW */
+  .order-top-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  
+  /* STATUS */
+  .status-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  .status-dropdown {
+    padding: 3px 6px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  /* ITEM */
+  .item-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -100px; 
+  }
+  
+  .item-image {
+    width: 110px;
+    height: 110px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+
+  
+  /* PAGINATION CENTER */
+  .pagination {
+    text-align: center;
+    margin-top:-60px;
+  }
+  
+  /* CLOSE BUTTON */
+  .close-btn {
+    width: 70%;
+    display: block;
+    margin: 10px auto;
+    background: #d97706;
+    border: none;
+    padding: 10px;
+    margin-top: -10px;
+
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+  
+  .close-btn:hover {
+    background: #d4d4d4;
+  }
+  .order-details-block {
+    width: 100%;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  
+  .order-details-block p {
+    margin: 4px 0;
+  }
+  
+  .status-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+  
+  .item-text {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .pagination-text {
+    text-align: center;
+    font-size: 13px;
+    margin-top: -18px;
+  }
+  .pagination-button {
+    text-align: center;
+    font-size: 13px;
+    margin-top: -18px; 
+}
+
+
+  .order-modal {
+    position: center;
+    top: 0;
+    left: 0;
+    margin-top: 40px;
+    width: 25%;
+    height:105vh;   
+    margin-bottom: 0; 
+  }
+  
+  .order-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    width: 350px;
+    max-width: 90%;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  }
+  .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  .order-card h3 {
+    text-align: center;
+    color: #ff7a00;
+    margin-bottom: 15px;
+  }
+  
+  .order-details-block p strong {
+    color: #333;
+  }
+  
+  .item-text {
+    color: #444;
+  }
+  
+  .pagination-text {
+    color: #777;
+  }
+  
+  .status-row select {
+    padding: 5px;
+    border-radius: 6px;
+  }

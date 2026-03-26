@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
+import Pagination from "../../components/Pagination"
 import { 
     getAllFoodItemsAPI, 
     createFoodItemAPI, 
@@ -15,6 +16,8 @@ import {
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import { FiEdit2, FiTrash2, FiPlus, FiAlertCircle, FiUpload } from 'react-icons/fi'
+import { useContext } from 'react'
+import { OrdersContext } from "../../context/OrdersContext"
 import './index.css'
 
 const AdminDashboard = () => {
@@ -27,6 +30,11 @@ const AdminDashboard = () => {
     
     // Food Items State
     const [foodItems, setFoodItems] = useState([])
+    const getFoodDetails = (foodId) => {
+        return foodItems.find(
+          f => String(f.id || f.Id) === String(foodId)
+        )
+      }
     const [showFoodForm, setShowFoodForm] = useState(false)
     const [isEditingFood, setIsEditingFood] = useState(false)
     const [currentFoodId, setCurrentFoodId] = useState(null)
@@ -58,11 +66,60 @@ const AdminDashboard = () => {
     const [restDistance, setRestDistance] = useState('0')
     const [restDeliveryTime, setRestDeliveryTime] = useState('0')
 
+    //Ordered Foods
+    const [selectedOrder, setSelectedOrder] = useState(null)
+    const [page, setPage] = useState(1)
+    const { allOrders, setOrders } = useContext(OrdersContext)
+
+
 
     useEffect(() => {
         fetchFoodItems()
         fetchRestaurants()
     }, [])
+
+    const getTotalQty = (items) => {
+        return items.reduce((sum, item) => sum + (item.quantity || item.Quantity || 0), 0)
+      }
+      
+      const updateOrderStatus = (orderId, newStatus) => {
+      
+        const statusFlow = ["Placed", "Preparing", "Delivered", "Cancelled"]
+      
+        const updatedOrders = allOrders.map(order => {
+          if (order.id === orderId) {
+      
+            const currentIndex = statusFlow.indexOf(order.status)
+            const newIndex = statusFlow.indexOf(newStatus)
+      
+            if (newIndex < currentIndex) return order
+      
+            return { ...order, status: newStatus }
+          }
+          return order
+        })
+      
+        setOrders(updatedOrders)
+      
+        localStorage.setItem("tasty_kitchens_orders", JSON.stringify(updatedOrders))
+      
+        setSelectedOrder(prev => ({
+          ...prev,
+          status: newStatus
+        }))
+      }
+    
+      const totalItems = selectedOrder?.items?.length || 0
+
+        const handlePrev = () => {
+        if (page > 1) setPage(page - 1)
+        }
+
+        const handleNext = () => {
+        if (page < totalItems) setPage(page + 1)
+        }
+
+        const currentItem = selectedOrder?.items?.[page - 1]
 
     const fetchRestaurants = async () => {
         setIsLoading(true)
@@ -456,8 +513,8 @@ const AdminDashboard = () => {
             </div>
         </div>
     )
-
-
+    
+   
     return (
         <div className="admin-page-wrapper d-flex flex-column min-vh-100">
             <Navbar />
@@ -492,6 +549,12 @@ const AdminDashboard = () => {
                         >
                             Restaurants
                         </button>
+                        <button 
+                            className={`btn ${activeTab === 'orders' ? 'btn-premium' : 'btn-light'} px-4 py-2 rounded-3`}
+                            onClick={() => setActiveTab('orders')}
+                        >
+                            Orders
+                        </button>
                     </div>
 
                     {errorMsg && (
@@ -509,6 +572,67 @@ const AdminDashboard = () => {
                         </div>
                     ) : (
                         <div className="table-responsive bg-white rounded-4 shadow-sm pb-2 table-wrapper">
+                             {/* 🔥 ORDERS TABLE */}
+        {activeTab === 'orders' && (
+            <table className="table table-hover align-middle admin-table mb-0">
+                <thead>
+                    <tr>
+                        <th className="py-3 text-muted text-uppercase text-xs">S.No</th>
+                        <th className="ps-4 py-3 text-muted text-uppercase text-xs">Order ID</th>
+                        <th className="py-3 text-muted text-uppercase text-xs">Date</th>
+                        <th className="py-3 text-muted text-uppercase text-xs">User</th>
+                        <th className="py-3 text-muted text-uppercase text-xs">Address</th>
+                        <th className="py-3 text-muted text-uppercase text-xs">Qty</th>
+                        <th className="py-3 text-muted text-uppercase text-xs">Amount</th>
+                        <th className="py-3 text-muted text-uppercase text-xs">Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {allOrders.length > 0 ? (
+                        allOrders.map(order => (
+                            <tr 
+                            key={order.id}
+                            onClick={() => {
+                                setSelectedOrder(order)
+                                setPage(1)   
+                              }}
+                            
+                            style={{ cursor: "pointer" }}
+                            >
+                                <td>{allOrders.indexOf(order) + 1}</td>
+                                <td className="ps-4 fw-semibold">#{order.id}</td>
+                                <td>{new Date(order.date || order.orderDate).toLocaleDateString()}</td>
+                                <td>{order.userEmail}</td>
+                                <td>{order.address}</td>
+                                <td>{getTotalQty(order.items)}</td>
+                                <td className="fw-bold text-success">₹{order.total}</td>
+                                <td>
+                            <span className={`status-badge ${
+                                order.status === 'Placed' ? 'status-placed' :
+                                order.status === 'Preparing' ? 'status-preparing' :
+                                order.status === 'Delivered' ? 'status-delivered' :
+                                'status-cancelled'
+                            }`}>
+                                {order.status}
+                            </span>
+                            </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="7" className="text-center py-5">
+                                No orders found
+                            </td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        )}
+
+        {/* 🔥 FOOD + REST BLOCK (UNCHANGED LOGIC, WRAPPED ONLY) */}
+        {activeTab !== 'orders' && (
+    <>
                             {activeTab === 'food' ? (
                                 <table className="table table-hover align-middle admin-table mb-0">
                                     <thead>
@@ -654,11 +778,94 @@ const AdminDashboard = () => {
                                     </tbody>
                                 </table>
                             )}
+                            </>
+)}
                         </div>
                     )}
                     
                     {showFoodForm && renderFoodForm()}
                     {showRestForm && renderRestForm()}
+                    {selectedOrder && (
+ <div 
+ className="order-modal-overlay"
+ onClick={() => setSelectedOrder(null)}
+>
+    <div 
+        className="order-modal"
+        onClick={(e) => e.stopPropagation()}
+        >
+<h4 className="order-title">ORDER DETAILS</h4>
+<hr />
+
+<div className="order-details-block">
+  <p><strong>Order ID :</strong> {selectedOrder.id}</p>
+  <p><strong>Total :</strong> ₹{selectedOrder.total}</p>
+  <p><strong>Phone No :</strong> {selectedOrder.phone || "N/A"}</p>
+</div>
+<hr />
+<div className="status-row">
+  <span className="fw-bold">Update Status :</span>
+
+  {selectedOrder.status === "Delivered" ? (
+    <span className="text-success fw-bold">Delivered</span>
+  ) : (
+    <select
+      value={selectedOrder.status}
+      onChange={(e) => updateOrderStatus(selectedOrder.id, e.target.value)}
+      onClick={(e) => e.stopPropagation()}
+      className="status-dropdown"
+    >
+      <option value="Placed">Placed</option>
+      <option value="Preparing">Preparing</option>
+      <option value="Delivered">Delivered</option>
+      <option value="Cancelled">Cancelled</option>
+    </select>
+  )}
+</div>
+<hr></hr>
+{currentItem && (() => {
+  const food = getFoodDetails(currentItem.FoodItemId) || {}
+
+  return (
+    <div className="item-container mt-3">
+
+  <img
+    src={food?.imageUrl || food?.ImageUrl || "https://res.cloudinary.com/dmmfmktet/image/upload/v1773139143/5d73ac7b641c2d7c65afd6d3f795d2b168831b19_zwiwhs.jpg"}
+    alt="food"
+    className="item-image"
+  />
+
+  <p className="item-text">
+    {food?.name || food?.Name || "Food Item"} x {currentItem.quantity || currentItem.Quantity}
+  </p>
+
+</div>
+  )
+})()}
+<Pagination 
+  page={page}
+  totalPages={totalItems}
+  onPrev={handlePrev}
+  onNext={handleNext}
+  
+/>
+
+
+        <button
+        className="close-btn"
+        onClick={(e) => {
+            e.stopPropagation()
+            setSelectedOrder(null)
+        }}
+        
+        >
+            
+        Close
+      </button>
+
+    </div>
+  </div>
+)}
                 </div>
             </div>
             <Footer />
