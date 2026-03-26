@@ -1,5 +1,6 @@
 import {useNavigate} from "react-router-dom"
 import Navbar from "../../components/Navbar"
+import Footer from "../../components/Footer"
 import "./index.css"
 
 const EmptyCart = () => {
@@ -30,13 +31,13 @@ const EmptyCart = () => {
         </p>
 
         <button
-          className="order-now-btn"
+          className="order-now-btn mb-3"
           onClick={goToHome}
         >
           Order Now
         </button>
-
       </div>
+      <Footer/>
     </div>
   )
 }

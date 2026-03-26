@@ -13,6 +13,7 @@ import PlaceOrder from "./pages/PlaceOrder"
 import CartConflictModal from './components/CartConflictModal'
 import AdminDashboard from './pages/AdminDashboard'
 
+
 function App() {
   return (
     <>
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/restaurant/:id" element={<ProtectedRoute><RestaurantDetails /></ProtectedRoute>} />
         <Route path="/cart" element={<ProtectedRoute><CartPage /></ProtectedRoute>} />
+        <Route path="/empty-cart" element={<ProtectedRoute><EmptyCart /></ProtectedRoute>} />
         <Route path="/place-order" element={<ProtectedRoute><PlaceOrder /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/admin" element={<ProtectedRoute allowedRoles={['ADMIN', 'SUPER_ADMIN']}><AdminDashboard /></ProtectedRoute>} />
