@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { registerAPI } from '../../services/api'
 import './index.css'
 
 /* SVGs for Input Icons */
@@ -99,7 +100,7 @@ const Signup = () => {
         setTimeout(() => setIsShake(false), 500)
     }
 
-    const onSubmitForm = (e) => {
+    const onSubmitForm = async (e) => {
         e.preventDefault()
         setShowError(false)
 
@@ -117,8 +118,14 @@ const Signup = () => {
 
         setIsLoading(true)
 
-        // Simulate API call
-        setTimeout(() => {
+        try {
+            await registerAPI({
+                Username: fullName,
+                Email: email,
+                Password: password,
+                Role: "USER" // By default signup creates USER
+            });
+
             setIsLoading(false)
             setIsSuccess(true)
 
@@ -131,7 +138,9 @@ const Signup = () => {
             setTimeout(() => {
                 navigate('/login', { replace: true })
             }, 2000)
-        }, 1200)
+        } catch (error) {
+            triggerError(error.message || 'Registration failed. Please try again.')
+        }
     }
 
     return (

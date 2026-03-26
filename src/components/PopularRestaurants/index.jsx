@@ -3,11 +3,9 @@ import { BsFilterLeft, BsSearch } from "react-icons/bs"
 import { MdOutlineKeyboardArrowDown } from "react-icons/md"
 import { FaCheck } from "react-icons/fa"
 import RestaurantCard from "../RestaurantCard"
-import { restaurantsData } from "../../constants"
-import { mockFoodItems } from "../../FoodItems"
 import "./index.css"
 
-const PopularRestaurants = ({ page, itemsPerPage, setPage }) => {
+const PopularRestaurants = ({ page, itemsPerPage, setPage, restaurants = [], foodItems = [] }) => {
 
   const [sortType, setSortType] = useState("Highest")
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -30,30 +28,30 @@ const PopularRestaurants = ({ page, itemsPerPage, setPage }) => {
 
   // sorting restaurants
 
-  const filteredRestaurants = restaurantsData.filter(restaurant => {
+  const filteredRestaurants = restaurants.filter(restaurant => {
     const searchLower = searchQuery.toLowerCase()
     
     // Check restaurant name
-    const matchesName = restaurant.name.toLowerCase().includes(searchLower)
+    const matchesName = restaurant.name?.toLowerCase().includes(searchLower)
     
     // Check cuisine
-    const matchesCuisine = restaurant.cuisine.toLowerCase().includes(searchLower)
+    const matchesCuisine = restaurant.cuisine?.toLowerCase().includes(searchLower)
     
     // Check location (hotel name)
-    const matchesLocation = restaurant.location.toLowerCase().includes(searchLower)
+    const matchesLocation = restaurant.location?.toLowerCase().includes(searchLower)
     
     // Check dishes
-    const restaurantDishes = mockFoodItems.filter(dish => dish.restaurantId === restaurant.id)
+    const restaurantDishes = foodItems.filter(dish => dish.restaurantId === restaurant.id)
     const matchesDish = restaurantDishes.some(dish => 
-      dish.name.toLowerCase().includes(searchLower)
+      dish.name?.toLowerCase().includes(searchLower)
     )
     
     return matchesName || matchesCuisine || matchesLocation || matchesDish
   })
 
   const sortedRestaurants = [...filteredRestaurants].sort((a, b) => {
-    const ratingA = a.userRating?.rating || 0
-    const ratingB = b.userRating?.rating || 0
+    const ratingA = (a.userRating?.rating || a.rating) || 0;
+    const ratingB = (b.userRating?.rating || b.rating) || 0;
 
     if (sortType === "Lowest") {
       return ratingA - ratingB

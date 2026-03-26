@@ -5,6 +5,7 @@ import "./index.css"
  
 const Navbar = () => {
     const navigate = useNavigate()
+    const userRole = Cookies.get('user_role')
  
     const onClickLogout = () => {
         Cookies.remove('jwt_token')
@@ -77,6 +78,20 @@ const Navbar = () => {
                                     Profile
                                 </NavLink>
                             </li>
+ 
+                            {/* ADMIN DASHBOARD */}
+                            {(userRole === 'ADMIN' || userRole === 'SUPER_ADMIN') && (
+                                <li className="nav-item mx-2">
+                                    <NavLink
+                                        to="/admin"
+                                        className={({ isActive }) =>
+                                            isActive ? "nav-link active fw-bold text-success" : "nav-link text-success"
+                                        }
+                                    >
+                                        Admin Dashboard
+                                    </NavLink>
+                                </li>
+                            )}
  
                             {/* LOGOUT */}
                             <li className="nav-item mx-lg-3 mt-lg-0">

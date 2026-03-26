@@ -11,10 +11,9 @@ const RestaurantBanner = ({ restaurantData }) => {
   location = "",
   costForTwo = 0,
   imageUrl = "",
-  userRating = {}
+  rating = 0,
+  totalReviews = 0
 } = restaurantData || {}
-
-const { rating = 0, totalReviews = 0 } = userRating
 
 const { isFavorite, toggleFavorite } = useContext(FavoritesContext)
 const isCurrentlyFavorite = isFavorite(id)
