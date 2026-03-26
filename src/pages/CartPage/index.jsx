@@ -4,11 +4,18 @@ import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import { FiMinus, FiPlus } from 'react-icons/fi'
 import { CartContext } from '../../context/CartContext.jsx'
+import { useEffect } from 'react'
 import './index.css'
 
 const CartPage = () => {
   const navigate = useNavigate()
   const { cartItems: cartList, increaseQuantity, decreaseQuantity } = useContext(CartContext)
+
+  useEffect(() => {
+  if (cartList.length === 0) {
+    navigate('/empty-cart')
+  }
+}, [cartList, navigate])
 
   const incrementQuantity = (id) => {
     increaseQuantity(id)
