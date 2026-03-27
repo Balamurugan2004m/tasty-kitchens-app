@@ -5,7 +5,7 @@ import './index.css'
 
 const FoodItem = (props) => {
   const { foodData, restaurantName, restaurantId } = props
-  const { id, name, cost, rating, imageUrl } = foodData
+  const { id, name, price, rating, imageUrl } = foodData
   
   const { cartItems, requestAddToCart, increaseQuantity, decreaseQuantity } = useContext(CartContext)
 
@@ -15,7 +15,7 @@ const FoodItem = (props) => {
 
   const onAdd = () => {
     requestAddToCart(
-      { id, name, price: cost, imageUrl, restaurantId, restaurantName }, 
+      { id, name, price: price, imageUrl, restaurantId, restaurantName }, 
       restaurantName
     )
   }
@@ -36,7 +36,7 @@ const FoodItem = (props) => {
         </div>
         <div className="col-8 col-md-9 ps-md-4">
           <h1 className="food-name mb-1">{name}</h1>
-          <p className="food-price mb-2">₹ {cost}.00</p>
+          <p className="food-price mb-2">₹ {price}.00</p>
           <div className="d-flex align-items-center mb-3 food-rating-row">
             <FaStar className="star-icon me-1 text-warning" />
             <span className="rating-text">{rating}</span>
