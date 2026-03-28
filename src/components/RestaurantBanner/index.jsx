@@ -46,7 +46,7 @@ const onToggleFavorite = () => {
             <div className="col-12 col-md-8 text-white text-center text-md-start banner-text-info">
 
               <div className="d-flex align-items-center justify-content-center justify-content-md-start mb-2 position-relative">
-                <h1 className="restaurant-name mb-0">{name}</h1>
+                <h1 className="banner-name">{name}</h1>
               </div>
 
               <button 
