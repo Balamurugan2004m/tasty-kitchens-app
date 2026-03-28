@@ -52,7 +52,12 @@ const CartPage = () => {
 
                   {/* Container for Name */}
                   <div className="item-name-container">
-                    <h1 className="cart-item-name">{item.name}</h1>
+                    <h1 className="cart-item-name mb-1">{item.name}</h1>
+                    {item.isVeg !== undefined && (
+                      <span className={`type-badge ${item.isVeg ? 'badge-veg' : 'badge-non-veg'}`} style={{ fontSize: '0.7rem', padding: '2px 8px' }}>
+                        {item.isVeg ? 'Veg' : 'Non-Veg'}
+                      </span>
+                    )}
                   </div>
                 </div>
 

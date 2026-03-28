@@ -68,3 +68,23 @@ button:focus-visible {
 body {
   margin: 0;
 }
+
+/* Reusable Badge Styles */
+.badge-veg {
+  background-color: #d1fae5;
+  color: #059669;
+}
+
+.badge-non-veg {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.type-badge {
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-weight: 600;
+}

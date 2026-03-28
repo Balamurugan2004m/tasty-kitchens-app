@@ -102,22 +102,7 @@
     font-size: 1.05rem;
 }
 
-/* Badges */
-.type-badge {
-    font-size: 0.8rem;
-    letter-spacing: 0.5px;
-}
-
-.badge-veg {
-    background-color: #d1fae5;
-    color: #059669;
-}
-
-.badge-non-veg {
-    background-color: #fee2e2;
-    color: #dc2626;
-}
-
+/* Badges managed globally in index.css */
 .rating-badge {
     background-color: #fffbeb;
     color: #d97706;

@@ -39,8 +39,8 @@ const AdminDashboard = () => {
     
     // Food Form Inputs
     const [foodName, setFoodName] = useState('')
-    const [foodCost, setFoodCost] = useState('')
-    const [foodType, setFoodType] = useState('Veg')
+    const [foodPrice, setFoodPrice] = useState('')
+    const [isVeg, setIsVeg] = useState(true)
     const [foodImageUrl, setFoodImageUrl] = useState('')
     const [foodRestaurantId, setFoodRestaurantId] = useState(userRole === 'SUPER_ADMIN' ? '' : FIXED_REST_ID)
     const [foodRating, setFoodRating] = useState('')
@@ -119,8 +119,8 @@ const AdminDashboard = () => {
 
     const resetFoodForm = () => {
         setFoodName('')
-        setFoodCost('')
-        setFoodType('Veg')
+        setFoodPrice('')
+        setIsVeg(true)
         setFoodImageUrl('')
         setFoodRestaurantId(userRole === 'SUPER_ADMIN' ? '' : FIXED_REST_ID)
         setFoodRating('0')
@@ -147,9 +147,9 @@ const AdminDashboard = () => {
 
     const handleEditFood = (foodItem) => {
         setFoodName(foodItem.name || foodItem.Name || '')
-        setFoodCost(foodItem.cost || foodItem.Cost || '')
-        const type = foodItem.foodType || foodItem.FoodType || foodItem.type || foodItem.Type || 'Veg'
-        setFoodType(type)
+        setFoodPrice(foodItem.price || foodItem.Price || foodItem.cost || foodItem.Cost || '')
+        const isVegStatus = foodItem.isVeg !== undefined ? foodItem.isVeg : (foodItem.IsVeg !== undefined ? foodItem.IsVeg : true)
+        setIsVeg(isVegStatus)
         setFoodImageUrl(foodItem.imageUrl || foodItem.ImageUrl || '')
         setFoodRestaurantId(foodItem.restaurantId || foodItem.RestaurantId || '')
         setFoodRating(foodItem.rating || foodItem.Rating || '0')
@@ -200,8 +200,8 @@ const AdminDashboard = () => {
         e.preventDefault()
         const payload = {
             Name: foodName,
-            Cost: parseFloat(foodCost) || 0,
-            FoodType: foodType,
+            Price: parseFloat(foodPrice) || 0,
+            IsVeg: isVeg,
             ImageUrl: foodImageUrl,
             RestaurantId: parseInt(foodRestaurantId, 10) || FIXED_REST_ID,
             Rating: parseFloat(foodRating) || 0
@@ -312,12 +312,12 @@ const AdminDashboard = () => {
                     
                     <div className="row mb-3">
                         <div className="col-md-6 custom-input-group">
-                            <label className="form-label text-muted fw-semibold">Cost ($)</label>
-                            <input type="number" step="0.01" className="form-control admin-input" placeholder="0.00" required value={foodCost} onChange={e => setFoodCost(e.target.value)} />
+                            <label className="form-label text-muted fw-semibold">Price ($)</label>
+                            <input type="number" step="0.01" className="form-control admin-input" placeholder="0.00" required value={foodPrice} onChange={e => setFoodPrice(e.target.value)} />
                         </div>
                         <div className="col-md-6 custom-input-group">
                             <label className="form-label text-muted fw-semibold">Food Type</label>
-                            <select className="form-select admin-input" value={foodType} onChange={e => setFoodType(e.target.value)}>
+                            <select className="form-select admin-input" value={isVeg ? 'Veg' : 'Non-Veg'} onChange={e => setIsVeg(e.target.value === 'Veg')}>
                                 <option value="Veg">Veg</option>
                                 <option value="Non-Veg">Non-Veg</option>
                             </select>
@@ -471,7 +471,7 @@ const AdminDashboard = () => {
                             </h2>
                             <p className="text-secondary mt-1 mb-0">Overview and control of your {activeTab === 'food' ? 'menus' : 'restaurants'}</p>
                         </div>
-                        { ((activeTab === 'food' && userRole === 'ADMIN') || (activeTab === 'restaurants' && userRole === 'SUPER_ADMIN')) && (
+                        { ((activeTab === 'food' && (userRole === 'ADMIN' || userRole === 'SUPER_ADMIN')) || (activeTab === 'restaurants' && userRole === 'SUPER_ADMIN')) && (
                             <button className="btn btn-premium d-flex align-items-center gap-2 mt-3 mt-md-0" onClick={() => activeTab === 'food' ? setShowFoodForm(true) : setShowRestForm(true)}>
                                 <FiPlus size={20} /> Add {activeTab === 'food' ? 'Food Item' : 'Restaurant'}
                             </button>
@@ -527,8 +527,8 @@ const AdminDashboard = () => {
                                             foodItems.map((item) => {
                                                 const id = item.id || item.Id;
                                                 const name = item.name || item.Name;
-                                                const type = item.foodType || item.FoodType || item.type || item.Type || 'Veg';
-                                                const cost = item.cost || item.Cost;
+                                                const itemIsVeg = item.isVeg !== undefined ? item.isVeg : (item.IsVeg !== undefined ? item.IsVeg : true);
+                                                const price = item.price || item.Price || item.cost || item.Cost || 0;
                                                 const restId = item.restaurantId || item.RestaurantId;
                                                 const rating = item.rating || item.Rating || '0.0';
                                                 const imgUrl = item.imageUrl || item.ImageUrl || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80';
@@ -546,11 +546,11 @@ const AdminDashboard = () => {
                                                         {userRole === 'SUPER_ADMIN' && <td className="text-secondary fw-semibold">#{id}</td>}
                                                         {userRole === 'SUPER_ADMIN' && <td className="text-secondary fw-semibold">R-{restId}</td>}
                                                         <td>
-                                                            <span className={`type-badge px-3 py-1 rounded-pill fw-semibold ${type === 'Veg' ? 'badge-veg' : 'badge-non-veg'}`}>
-                                                                {type}
+                                                            <span className={`type-badge px-3 py-1 rounded-pill fw-semibold ${itemIsVeg ? 'badge-veg' : 'badge-non-veg'}`}>
+                                                                {itemIsVeg ? 'Veg' : 'Non-Veg'}
                                                             </span>
                                                         </td>
-                                                        <td className="fw-bold text-success fs-6">${typeof cost === 'number' ? cost.toFixed(2) : cost}</td>
+                                                        <td className="fw-bold text-success fs-6">${typeof price === 'number' ? price.toFixed(2) : price}</td>
                                                         <td>
                                                             <span className="rating-badge">★ {rating}</span>
                                                         </td>

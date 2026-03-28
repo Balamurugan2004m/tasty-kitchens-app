@@ -5,7 +5,9 @@ import './index.css'
 
 const FoodItem = (props) => {
   const { foodData, restaurantName, restaurantId } = props
-  const { id, name, price, rating, imageUrl } = foodData
+  const { id, name, price, rating, imageUrl, isVeg: itemIsVeg } = foodData
+  // Handle both camelCase and PascalCase from API if needed
+  const isVeg = itemIsVeg !== undefined ? itemIsVeg : (foodData.IsVeg !== undefined ? foodData.IsVeg : true)
   
   const { cartItems, requestAddToCart, increaseQuantity, decreaseQuantity } = useContext(CartContext)
 
@@ -15,7 +17,7 @@ const FoodItem = (props) => {
 
   const onAdd = () => {
     requestAddToCart(
-      { id, name, price: price, imageUrl, restaurantId, restaurantName }, 
+      { id, name, price: price, imageUrl, restaurantId, restaurantName, isVeg: isVeg }, 
       restaurantName
     )
   }
@@ -29,14 +31,23 @@ const FoodItem = (props) => {
   }
 
   return (
-    <li className="food-item-container list-unstyled mb-4">
-      <div className="row align-items-center">
-        <div className="col-4 col-md-3">
-          <img src={imageUrl} alt={name} className="food-image rounded-3 w-100 shadow-sm" />
+    <li className="food-item-container list-unstyled mb-4 shadow-sm border rounded-3 p-3 bg-white h-100">
+      <div className="row g-0 align-items-center">
+        <div className="col-4">
+          <div className="position-relative">
+            <img src={imageUrl} alt={name} className="food-image rounded-3 w-100 shadow-sm" />
+          </div>
         </div>
-        <div className="col-8 col-md-9 ps-md-4">
-          <h1 className="food-name mb-1">{name}</h1>
-          <p className="food-price mb-2">₹ {price}.00</p>
+        <div className="col-8 ps-3 ps-md-4">
+          <div className="d-flex justify-content-between align-items-start mb-1">
+            <h1 className="food-name mb-0 me-2">{name}</h1>
+            <span className={`type-badge ${isVeg ? 'badge-veg' : 'badge-non-veg'}`}>
+              {isVeg ? 'Veg' : 'Non-Veg'}
+            </span>
+          </div>
+          
+          <p className="food-price mb-2 text-success fw-bold">₹ {price}.00</p>
+          
           <div className="d-flex align-items-center mb-3 food-rating-row">
             <FaStar className="star-icon me-1 text-warning" />
             <span className="rating-text">{rating}</span>
