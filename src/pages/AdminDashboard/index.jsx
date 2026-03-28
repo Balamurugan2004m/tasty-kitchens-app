@@ -471,7 +471,7 @@ const AdminDashboard = () => {
                             </h2>
                             <p className="text-secondary mt-1 mb-0">Overview and control of your {activeTab === 'food' ? 'menus' : 'restaurants'}</p>
                         </div>
-                        { ((activeTab === 'food' && (userRole === 'ADMIN' || userRole === 'SUPER_ADMIN')) || (activeTab === 'restaurants' && userRole === 'SUPER_ADMIN')) && (
+                        { ((activeTab === 'food' && userRole === 'ADMIN') || (activeTab === 'restaurants' && userRole === 'SUPER_ADMIN')) && (
                             <button className="btn btn-premium d-flex align-items-center gap-2 mt-3 mt-md-0" onClick={() => activeTab === 'food' ? setShowFoodForm(true) : setShowRestForm(true)}>
                                 <FiPlus size={20} /> Add {activeTab === 'food' ? 'Food Item' : 'Restaurant'}
                             </button>
