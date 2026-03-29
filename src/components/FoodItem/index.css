@@ -78,3 +78,41 @@
     font-size: 1rem;
   }
 }
+
+/* Veg/Non-Veg Indicator */
+.food-type-indicator {
+  display: flex;
+  align-items: center;
+}
+
+.indicator-border {
+  width: 14px;
+  height: 14px;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1px;
+}
+
+.indicator-circle {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.veg .indicator-border {
+  border-color: #0f8a65;
+}
+
+.veg .indicator-circle {
+  background-color: #0f8a65;
+}
+
+.non-veg .indicator-border {
+  border-color: #bd362f;
+}
+
+.non-veg .indicator-circle {
+  background-color: #bd362f;
+}

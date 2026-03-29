@@ -5,8 +5,12 @@ import './index.css'
 
 const FoodItem = (props) => {
   const { foodData, restaurantName, restaurantId } = props
-  const { id, name, price, rating, imageUrl } = foodData
+  const { id, name, price: rawPrice, rating, imageUrl, isVeg: rawIsVeg, IsVeg: rawIsVegAlt } = foodData
   
+  // Normalize data from different API cases
+  const price = rawPrice || foodData.Price || foodData.cost || foodData.Cost
+  const isVeg = rawIsVeg !== undefined ? rawIsVeg : (rawIsVegAlt !== undefined ? rawIsVegAlt : true)
+
   const { cartItems, requestAddToCart, increaseQuantity, decreaseQuantity } = useContext(CartContext)
 
   // Derive quantity from global cart data
@@ -35,7 +39,14 @@ const FoodItem = (props) => {
           <img src={imageUrl} alt={name} className="food-image rounded-3 w-100 shadow-sm" />
         </div>
         <div className="col-8 col-md-9 ps-md-4">
-          <h1 className="food-name mb-1">{name}</h1>
+          <div className="d-flex align-items-center gap-2 mb-1">
+            <div className={`food-type-indicator ${isVeg ? 'veg' : 'non-veg'}`}>
+              <div className="indicator-border">
+                <div className="indicator-circle"></div>
+              </div>
+            </div>
+            <h1 className="food-name mb-0">{name}</h1>
+          </div>
           <p className="food-price mb-2">₹ {price}.00</p>
           <div className="d-flex align-items-center mb-3 food-rating-row">
             <FaStar className="star-icon me-1 text-warning" />
