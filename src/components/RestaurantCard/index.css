@@ -70,6 +70,18 @@
   font-size: 12px;
   color: #64748b;
 }
+  
+.restaurant-cost {
+  font-size: 14px;
+  color: #475569;
+  margin: 4px 0 0;
+  font-weight: 500;
+}
+
+.cost-value {
+  color: #1e293b;
+  font-weight: 600;
+}
 
 .favorite-button-home {
   top: 6px;

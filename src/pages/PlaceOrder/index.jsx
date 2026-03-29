@@ -47,18 +47,18 @@ const PlaceOrder = () => {
         }
 
         const orderDetails = {
-            orderDate: new Date().toISOString(),
-            items: cartItems.map(item => ({
-                foodItemId: item.id,
-                quantity: item.quantity,
-                unitPrice: item.price
+            OrderDate: new Date().toISOString(),
+            Items: cartItems.map(item => ({
+                FoodItemId: item.id,
+                Quantity: item.quantity,
+                UnitPrice: item.price
             })),
-            totalAmount: calculateTotal(),
-            address: finalAddress,
-            phoneNumber: finalPhone,
-            paymentMethod: 'Cash on Delivery',
-            status: 'Placed',
-            restaurantId: String(cartItems[0]?.restaurantId || '1')
+            TotalAmount: calculateTotal(),
+            Address: finalAddress,
+            PhoneNumber: finalPhone,
+            PaymentMethod: 'Cash on Delivery',
+            Status: 'Placed',
+            RestaurantId: String(cartItems[0]?.restaurantId || '1')
         }
 
         try {

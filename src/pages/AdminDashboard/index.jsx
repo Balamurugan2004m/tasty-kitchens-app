@@ -216,8 +216,17 @@ const AdminDashboard = () => {
 
     const handleEditFood = (foodItem) => {
         setFoodName(foodItem.name || foodItem.Name || '')
-        setFoodCost(foodItem.cost || foodItem.Cost || '')
-        const type = foodItem.foodType || foodItem.FoodType || foodItem.type || foodItem.Type || 'Veg'
+        setFoodCost(foodItem.price || foodItem.Price || foodItem.cost || foodItem.Cost || '')
+        
+        // Handle isVeg boolean or legacy foodType string
+        let type = 'Veg'
+        const rawIsVeg = foodItem.isVeg !== undefined ? foodItem.isVeg : foodItem.IsVeg
+        if (rawIsVeg !== undefined) {
+            type = rawIsVeg ? 'Veg' : 'Non-Veg'
+        } else {
+            type = foodItem.foodType || foodItem.FoodType || foodItem.type || foodItem.Type || 'Veg'
+        }
+        
         setFoodType(type)
         setFoodImageUrl(foodItem.imageUrl || foodItem.ImageUrl || '')
         setFoodRestaurantId(foodItem.restaurantId || foodItem.RestaurantId || '')
@@ -269,8 +278,8 @@ const AdminDashboard = () => {
         e.preventDefault()
         const payload = {
             Name: foodName,
-            Cost: parseFloat(foodCost) || 0,
-            FoodType: foodType,
+            Price: parseFloat(foodCost) || 0,
+            IsVeg: foodType === 'Veg',
             ImageUrl: foodImageUrl,
             RestaurantId: parseInt(foodRestaurantId, 10) || FIXED_REST_ID,
             Rating: parseFloat(foodRating) || 0
@@ -685,8 +694,17 @@ const AdminDashboard = () => {
                                                     foodItems.map((item) => {
                                                         const id = item.id || item.Id;
                                                         const name = item.name || item.Name;
-                                                        const type = item.foodType || item.FoodType || item.type || item.Type || 'Veg';
-                                                        const cost = item.cost || item.Cost;
+                                                        
+                                                        // Extract Veg Status
+                                                        let type = 'Veg';
+                                                        const rawIsVeg = item.isVeg !== undefined ? item.isVeg : item.IsVeg;
+                                                        if (rawIsVeg !== undefined) {
+                                                            type = rawIsVeg ? 'Veg' : 'Non-Veg';
+                                                        } else {
+                                                            type = item.foodType || item.FoodType || item.type || item.Type || 'Veg';
+                                                        }
+
+                                                        const cost = item.price || item.Price || item.cost || item.Cost;
                                                         const restId = item.restaurantId || item.RestaurantId;
                                                         const rating = item.rating || item.Rating || '0.0';
                                                         const imgUrl = item.imageUrl || item.ImageUrl || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80';

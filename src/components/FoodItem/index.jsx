@@ -7,6 +7,7 @@ const FoodItem = (props) => {
   const { foodData, restaurantName, restaurantId } = props
   const { id, name, price, rating, imageUrl, isVeg: itemIsVeg } = foodData
   // Handle both camelCase and PascalCase from API if needed
+  const normalizedPrice = price !== undefined ? price : (foodData.Price !== undefined ? foodData.Price : 0)
   const isVeg = itemIsVeg !== undefined ? itemIsVeg : (foodData.IsVeg !== undefined ? foodData.IsVeg : true)
   
   const { cartItems, requestAddToCart, increaseQuantity, decreaseQuantity } = useContext(CartContext)
@@ -17,7 +18,7 @@ const FoodItem = (props) => {
 
   const onAdd = () => {
     requestAddToCart(
-      { id, name, price: price, imageUrl, restaurantId, restaurantName, isVeg: isVeg }, 
+      { id, name, price: normalizedPrice, imageUrl, restaurantId, restaurantName, isVeg: isVeg }, 
       restaurantName
     )
   }
@@ -39,14 +40,16 @@ const FoodItem = (props) => {
           </div>
         </div>
         <div className="col-8 ps-3 ps-md-4">
-          <div className="d-flex justify-content-between align-items-start mb-1">
-            <h1 className="food-name mb-0 me-2">{name}</h1>
-            <span className={`type-badge ${isVeg ? 'badge-veg' : 'badge-non-veg'}`}>
-              {isVeg ? 'Veg' : 'Non-Veg'}
-            </span>
+          <div className="food-header-row mb-2">
+            <h1 className="food-name">{name}</h1>
+            <div className="type-badge-container ms-3">
+              <span className={`type-badge ${isVeg ? 'badge-veg' : 'badge-non-veg'}`}>
+                {isVeg ? 'Veg' : 'Non-Veg'}
+              </span>
+            </div>
           </div>
           
-          <p className="food-price mb-2 text-success fw-bold">₹ {price}.00</p>
+          <p className="food-price mb-2 text-success fw-bold">₹ {normalizedPrice}.00</p>
           
           <div className="d-flex align-items-center mb-3 food-rating-row">
             <FaStar className="star-icon me-1 text-warning" />

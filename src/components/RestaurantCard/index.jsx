@@ -7,7 +7,7 @@ import './index.css'
 
 const RestaurantCard = (props) => {
   const { restaurantData } = props
-  const { id, imageUrl, name, cuisine, rating, totalReviews } = restaurantData
+  const { id, imageUrl, name, cuisine, rating, totalReviews, costForTwo } = restaurantData
 
   const { isFavorite, toggleFavorite } = useContext(FavoritesContext)
   const isCurrentlyFavorite = isFavorite(id)
@@ -55,6 +55,10 @@ const RestaurantCard = (props) => {
               ({totalReviews} ratings)
             </span>
           </div>
+
+          <p className="restaurant-cost">
+            Cost for two: <span className="cost-value">₹{costForTwo}</span>
+          </p>
         </div>
       </div>
     </Link>
