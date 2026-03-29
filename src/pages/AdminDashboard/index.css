@@ -65,11 +65,17 @@
     border: 1px solid #edf2f7;
 }
 
+.admin-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
 .admin-table thead th {
     font-size: 0.75rem;
     letter-spacing: 1px;
     border-bottom: 2px solid #edf2f7;
     background-color: #ffffff;
+    text-transform: uppercase;
 }
 
 .table-row-hover {
@@ -100,9 +106,25 @@
 
 .item-name {
     font-size: 1.05rem;
+    font-weight: 600;
 }
 
-/* Badges managed globally in index.css */
+/* Badges */
+.type-badge {
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.badge-veg {
+    background-color: #d1fae5;
+    color: #059669;
+}
+
+.badge-non-veg {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
 .rating-badge {
     background-color: #fffbeb;
     color: #d97706;
@@ -192,7 +214,7 @@
     letter-spacing: 0.5px;
     display: flex;
     align-items: flex-end;
-    min-height: 2.5rem; /* Ensures alignment even with 2-line labels */
+    min-height: 2.5rem;
 }
 
 .admin-input {
@@ -212,7 +234,6 @@
         opacity: 0;
         transform: scale(0.95) translateY(10px);
     }
-
     to {
         opacity: 1;
         transform: scale(1) translateY(0);
@@ -238,6 +259,192 @@
 .tab-switcher .btn-light:hover {
     background: #f1f5f9;
     color: #0f172a;
+}
+
+/* ============================= */
+/* 🔥 ORDERS TABLE STYLES */
+/* ============================= */
+
+.admin-table td:first-child:not(.order-serial) {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.order-serial {
+    width: 60px;
+    text-align: center !important;
+    font-weight: 600;
+    color: #64748b;
+    font-size: 0.9rem;
+    padding-left: 1.5rem;
+}
+
+th.order-serial, td.order-serial {
+    text-align: center !important;
+}
+
+/* ============================= */
+/* 🔥 STATUS BADGES */
+/* ============================= */
+
+.status-badge, .order-status {
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.status-placed {
+    background-color: #fef3c7;
+    color: #d97706;
+}
+
+.status-preparing {
+    background-color: #dbeafe;
+    color: #2563eb;
+}
+
+.status-delivered {
+    background-color: #d1fae5;
+    color: #059669;
+}
+
+.status-cancelled {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+/* ============================= */
+/* 🔥 ORDER MODAL STYLES */
+/* ============================= */
+
+.order-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050;
+}
+
+.order-modal {
+    background: rgb(255, 255, 255);
+    padding: 25px;
+    border-radius: 12px;
+    width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    margin-top: 40px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.order-title {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #ff7a00;
+    margin-bottom: 15px;
+}
+
+.order-details-block {
+    width: 100%;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.order-details-block p {
+    margin: 4px 0;
+}
+
+.status-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.status-dropdown {
+    padding: 3px 6px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.item-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Specific user hack for items overlap? */
+.item-container.mt-3 {
+    margin-top: -100px !important; 
+}
+
+.item-image {
+    width: 110px;
+    height: 110px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.item-text {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #444;
+}
+
+.close-btn {
+    width: 70%;
+    display: block;
+    margin: 20px auto 0;
+    background: #d97706;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+    color: white;
+}
+
+.close-btn:hover {
+    background: #cc7000;
+}
+
+.no-orders {
+    text-align: center;
+    padding: 60px 0;
+    color: #94a3b8;
+    font-size: 1rem;
+}
+
+.status-filter-dropdown {
+    width: 100px;
+    height: 30px;
+    font-size: 13px;
+    padding: 2px 6px;
+}
+
+/* Adjust Pagination in Modal */
+/* These target the elements inside the Pagination component */
+.order-modal .pagination-container {
+    margin-top: -30px !important; /* Tweaked from user's -60px to be visible */
+}
+
+.order-modal .pagination-text, 
+.order-modal .pagination-button {
+    font-size: 13px;
+    margin-top: -10px;
 }
 
 /* Responsive Table */

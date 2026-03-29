@@ -29,7 +29,6 @@ const handleResponse = async (response) => {
         data = { message: 'Unexpected response format from server' };
     }
     if (!response.ok) {
-        // Extract validation errors specifically for ASP.NET Problem Details
         if (data.errors && typeof data.errors === 'object') {
             const errorMessages = Object.values(data.errors).flat().join(' | ');
             throw new Error(errorMessages || data.title || `HTTP Error ${response.status}`);
@@ -37,7 +36,6 @@ const handleResponse = async (response) => {
         throw new Error(data.message || data.title || `HTTP Error ${response.status}`);
     }
     
-    // Unwrap the `{success: true, data: ...}` structure if returned by backend
     if (data && typeof data === 'object' && data.success !== undefined && data.data !== undefined) {
         return data.data;
     }
@@ -181,6 +179,61 @@ export const uploadFoodItemImageAPI = async (file) => {
         method: 'POST',
         headers: getUploadHeaders(),
         body: formData
+    });
+    return handleResponse(response);
+};
+
+// ---------------- PROFILE ----------------
+
+export const getUserProfileAPI = async () => {
+    const response = await fetch(`${BASE_URL}/auth/profile`, {
+        method: 'GET',
+        headers: getAuthHeaders()
+    });
+    return handleResponse(response);
+};
+
+export const updateUserProfileAPI = async (profileData) => {
+    const response = await fetch(`${BASE_URL}/auth/profile`, {
+        method: 'PUT',
+        headers: getAuthHeaders(),
+        body: JSON.stringify(profileData)
+    });
+    return handleResponse(response);
+};
+
+// ---------------- ORDERS ----------------
+
+export const getMyOrdersAPI = async () => {
+    const response = await fetch(`${BASE_URL}/orders/my`, {
+        method: 'GET',
+        headers: getAuthHeaders()
+    });
+    return handleResponse(response);
+};
+
+export const getAllOrdersAPI = async () => {
+    const response = await fetch(`${BASE_URL}/orders`, {
+        method: 'GET',
+        headers: getAuthHeaders()
+    });
+    return handleResponse(response);
+};
+
+export const createOrderAPI = async (orderData) => {
+    const response = await fetch(`${BASE_URL}/orders`, {
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: JSON.stringify(orderData)
+    });
+    return handleResponse(response);
+};
+
+export const updateOrderStatusAPI = async (id, status) => {
+    const response = await fetch(`${BASE_URL}/orders/${id}/status`, {
+        method: 'PATCH',
+        headers: getAuthHeaders(),
+        body: JSON.stringify({ status })
     });
     return handleResponse(response);
 };

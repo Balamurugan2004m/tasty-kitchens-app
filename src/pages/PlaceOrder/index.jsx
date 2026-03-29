@@ -8,10 +8,12 @@ import toast from 'react-hot-toast'
 import Cookies from 'js-cookie'
 import './index.css'
 
+import { createOrderAPI } from '../../services/api'
+
 const PlaceOrder = () => {
     const navigate = useNavigate()
     const { cartItems, clearCart } = useContext(CartContext)
-    const { addOrder, addresses } = useContext(OrdersContext)
+    const { addresses } = useContext(OrdersContext)
 
     const [addressType, setAddressType] = useState('saved') // 'saved' or 'new'
     const [selectedAddressId, setSelectedAddressId] = useState(addresses[0]?.id || '')
@@ -27,7 +29,7 @@ const PlaceOrder = () => {
         return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
     }
 
-    const onPlaceOrder = () => {
+    const onPlaceOrder = async () => {
         let finalAddress = ''
         let finalPhone = ''
 
@@ -45,24 +47,32 @@ const PlaceOrder = () => {
         }
 
         const orderDetails = {
-            id: `ORD${Date.now()}`,
-            date: new Date().toLocaleDateString(),
-            items: cartItems,
-            total: calculateTotal(),
+            orderDate: new Date().toISOString(),
+            items: cartItems.map(item => ({
+                foodItemId: item.id,
+                quantity: item.quantity,
+                unitPrice: item.price
+            })),
+            totalAmount: calculateTotal(),
             address: finalAddress,
-            phone: finalPhone,
+            phoneNumber: finalPhone,
             paymentMethod: 'Cash on Delivery',
-            status: 'Confirmed',
-            restaurantId: cartItems[0]?.restaurantId || '',
-            userEmail: Cookies.get('user_email') || ''
+            status: 'Placed',
+            restaurantId: String(cartItems[0]?.restaurantId || '1')
         }
 
-        addOrder(orderDetails)
-        setIsOrderPlaced(true)
-        clearCart()
-        toast.success('Order Placed Successfully!')
-        navigate('/', { replace: true })
+        try {
+            await createOrderAPI(orderDetails)
+            setIsOrderPlaced(true)
+            clearCart()
+            toast.success('Order Placed Successfully! 🔥')
+            navigate('/', { replace: true })
+        } catch (error) {
+            console.error('Order Error:', error)
+            toast.error(error.message || 'Failed to place order')
+        }
     }
+
 
     return (
         <div className="place-order-page">

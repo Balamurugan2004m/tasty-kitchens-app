@@ -6,7 +6,10 @@ import Cookies from "js-cookie"
 import toast from "react-hot-toast"
 import { OrdersContext } from "../../context/OrdersContext"
 import { MdCameraAlt } from 'react-icons/md'
+import EditProfile from "./EditProfile"
 import './index.css'
+import { useEffect } from "react";
+import { getUserProfileAPI, updateUserProfileAPI, getMyOrdersAPI } from "../../services/api";
 
 const menuItems = [
   "Account Information",
@@ -21,9 +24,22 @@ const menuItems = [
 const Profile = () => {
 
   const navigate = useNavigate()
-  const { orders, userRole, userEmail, addresses, addAddress, deleteAddress, updateAddress } = useContext(OrdersContext)
-
+  const { userRole, userEmail, addresses, addAddress, deleteAddress, updateAddress } = useContext(OrdersContext)
+  const [apiOrders, setApiOrders] = useState([])
   const [active,setActive] = useState("Account Information")
+  
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const data = await getMyOrdersAPI();
+        setApiOrders(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchOrders();
+  }, []);
 
   /* PROFILE */
 
@@ -39,6 +55,31 @@ const Profile = () => {
   const [tempProfile,setTempProfile] = useState({...profile})
   const [isEditing,setIsEditing] = useState(false)
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const data = await getUserProfileAPI();
+  
+        const profileData = {
+          name: data.username || data.name || "User",
+          email: data.email || "user@email.com",
+          phone: data.phoneNumber || data.phone || "",
+          memberSince: "2026",
+          address: data.address || "",
+          avatar: data.avatar || "https://i.pravatar.cc/300?img=12"
+        };
+  
+        setProfile(profileData);
+        setTempProfile(profileData);
+  
+      } catch (err) {
+        console.log(err);
+      }
+    };
+  
+    fetchProfile();
+  }, []);
+
   const [newAddress,setNewAddress] = useState("")
   const [newPhone,setNewPhone] = useState("")
   const [editingId,setEditingId] = useState(null)
@@ -48,7 +89,7 @@ const Profile = () => {
   const [currentPassword,setCurrentPassword] = useState("")
   const [newPassword,setNewPassword] = useState("")
   const [confirmPassword,setConfirmPassword] = useState("")
-  const [passwordMsg,setPasswordMsg] = useState("")
+
   /* LOGOUT */
 
   const onClickLogout = () => {
@@ -58,10 +99,20 @@ const Profile = () => {
 
   /* SAVE PROFILE */
 
-  const saveProfile = () => {
-    setProfile(tempProfile)
-    setIsEditing(false)
-  }
+  const saveProfile = async (updatedData) => {
+    try {
+      await updateUserProfileAPI(updatedData);
+  
+      setProfile(updatedData);
+      setTempProfile(updatedData);
+      setIsEditing(false);
+  
+      toast.success("Profile Updated Successfully 🔥");
+  
+    } catch (err) {
+      toast.error(err.message || "Update failed");
+    }
+  };
 
   /* IMAGE UPLOAD */
 
@@ -115,51 +166,31 @@ const updatePassword = () => {
     setNewPassword("")
     setConfirmPassword("")
   }
+  
 
   const renderContent = () => {
 
     switch(active){
 
       case "Account Information":
-
+        if (isEditing) {
+          return <EditProfile profile={tempProfile} onSave={saveProfile} />
+        }
         return(
-
           <div className="account-info-container">
-
             <div className="form-group">
               <label>Name</label>
-              <input
-                value={tempProfile.name}
-                disabled={!isEditing}
-                onChange={(e)=>setTempProfile({
-                  ...tempProfile,
-                  name:e.target.value
-                })}
-              />
+              <input value={profile.name} disabled />
             </div>
 
             <div className="form-group">
               <label>Email</label>
-              <input
-                value={tempProfile.email}
-                disabled={!isEditing}
-                onChange={(e)=>setTempProfile({
-                  ...tempProfile,
-                  email:e.target.value
-                })}
-              />
+              <input value={profile.email} disabled />
             </div>
 
             <div className="form-group">
               <label>Phone Number</label>
-              <input
-                value={tempProfile.phone}
-                disabled={!isEditing}
-                onChange={(e)=>setTempProfile({
-                  ...tempProfile,
-                  phone:e.target.value
-                })}
-              />
+              <input value={profile.phone} disabled />
             </div>
 
             <div className="form-group">
@@ -169,36 +200,16 @@ const updatePassword = () => {
 
             <div className="form-group">
               <label>Default Address</label>
-              <textarea
-                value={tempProfile.address}
-                disabled={!isEditing}
-                onChange={(e)=>setTempProfile({
-                  ...tempProfile,
-                  address:e.target.value
-                })}
-              />
+              <textarea value={profile.address} disabled />
             </div>
-
-            {isEditing && (
-
-              <button
-                className="save-btn"
-                onClick={saveProfile}
-              >
-                Save Changes
-              </button>
-
-            )}
-
           </div>
-
         )
 
 
       case "My Orders":
         return(
           <div className="orders-container">
-            {orders.length === 0 ? (
+            {apiOrders.length === 0 ? (
               <div className="orders-empty">
                 <img
                   src="https://res.cloudinary.com/dy7ogboi4/image/upload/v1773567674/NoOrder_dnmlbi.png"
@@ -221,18 +232,25 @@ const updatePassword = () => {
                   {userRole === 'ADMIN' && 'Restaurant Sales Log (Store #1)'}
                   {userRole === 'USER' && 'My Past Orders'}
                 </h4>
-                {orders.map(order => (
+                {apiOrders.map(order => (
                   <div key={order.id} className="order-history-card">
                     <div className="order-history-header">
                       <span className="order-id">#{order.id}</span>
-                      <span className="order-date">{order.date}</span>
+                      <span className="order-date">
+                        {new Date(order.orderDate).toLocaleDateString()}
+                      </span>
                     </div>
                     <div className="order-history-body">
                       <div className="order-items-scroll">
-                        {order.items.map(item => (
+                        {(order.items || []).map(item => (
                           <div key={item.id} className="order-item-mini">
-                            <span className="item-name">{item.name} x {item.quantity}</span>
-                            <span className="item-price">₹{(item.price * item.quantity).toFixed(2)}</span>
+                           <span className="item-name">
+                            {item.foodName || item.name} x {item.quantity}
+                          </span>
+
+                          <span className="item-price">
+                            ₹{(item.unitPrice * item.quantity).toFixed(2)}
+                          </span>
                           </div>
                         ))}
                       </div>
@@ -244,7 +262,7 @@ const updatePassword = () => {
                         </div>
                         <div className="text-end">
                           <p className="mb-0 small text-muted">Total:</p>
-                          <span className="fw-bold text-success">₹{order.total.toFixed(2)}</span>
+                          <span className="fw-bold text-success">₹{(order.totalAmount || 0).toFixed(2)}</span>
                         </div>
                       </div>
                     </div>
@@ -268,7 +286,7 @@ const updatePassword = () => {
 
             <h4 className="section-title">Saved Addresses</h4>
 
-            {addresses.map(addr =>(
+            {(addresses || []).map(addr =>(
 
               <div key={addr.id} className="address-card">
 
@@ -479,10 +497,6 @@ const updatePassword = () => {
         
         )
 
-
-
-
-
       default:
         return null
     }
@@ -526,7 +540,7 @@ const updatePassword = () => {
                 </div>
 
                 <p className="profile-email">
-                  {userEmail || profile.email}
+                  {profile.email}
                 </p>
               </div>
 
@@ -539,7 +553,7 @@ const updatePassword = () => {
               setIsEditing(true)
             }}
           >
-            Edit Profile
+            {isEditing ? 'Editing Profile...' : 'Edit Profile'}
           </button>
 
         </div>
@@ -560,6 +574,7 @@ const updatePassword = () => {
                     onClickLogout()
                   }else{
                     setActive(item)
+                    if(item !== "Account Information") setIsEditing(false)
                   }
                 }}
               >

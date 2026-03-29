@@ -407,7 +407,7 @@
 }
 
 /* Maintain original responsive layout rules */
-@media (max-width: 767px) {
+@media (max-width: 991px) {
     .login-page-container {
         padding: 0;
     }
@@ -447,7 +447,7 @@
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     .login-content-wrapper {
         flex-direction: row;
         height: 100vh;
