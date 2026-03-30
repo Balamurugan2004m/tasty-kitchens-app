@@ -6,10 +6,10 @@ import Cookies from "js-cookie"
 import toast from "react-hot-toast"
 import { OrdersContext } from "../../context/OrdersContext"
 import { MdCameraAlt } from 'react-icons/md'
-import EditProfile from "./EditProfile"
 import './index.css'
 import { useEffect } from "react";
-import { getUserProfileAPI, updateUserProfileAPI, getMyOrdersAPI } from "../../services/api";
+import { getUserProfileAPI, updateUserProfileAPI } from "../../services/api";
+import { getMyOrdersAPI } from "../../services/api";
 
 const menuItems = [
   "Account Information",
@@ -24,10 +24,9 @@ const menuItems = [
 const Profile = () => {
 
   const navigate = useNavigate()
-  const { userRole, userEmail, addresses, addAddress, deleteAddress, updateAddress } = useContext(OrdersContext)
+  const { orders, userRole, userEmail, addresses, addAddress, deleteAddress, updateAddress } = useContext(OrdersContext)
   const [apiOrders, setApiOrders] = useState([])
   const [active,setActive] = useState("Account Information")
-  
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -51,26 +50,28 @@ const Profile = () => {
     address:"",
     avatar: "https://i.pravatar.cc/300?img=12"
   })
-
-  const [tempProfile,setTempProfile] = useState({...profile})
-  const [isEditing,setIsEditing] = useState(false)
-
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const data = await getUserProfileAPI();
   
-        const profileData = {
-          name: data.username || data.name || "User",
-          email: data.email || "user@email.com",
-          phone: data.phoneNumber || data.phone || "",
+        setProfile({
+          name: data.username,
+          email: data.email,
+          phone: data.phoneNumber,
           memberSince: "2026",
-          address: data.address || "",
-          avatar: data.avatar || "https://i.pravatar.cc/300?img=12"
-        };
+          address: data.address,
+          avatar: "https://i.pravatar.cc/300?img=12"
+        });
   
-        setProfile(profileData);
-        setTempProfile(profileData);
+        setTempProfile({
+          name: data.username,
+          email: data.email,
+          phone: data.phoneNumber,
+          memberSince: "2026",
+          address: data.address,
+          avatar: "https://i.pravatar.cc/300?img=12"
+        });
   
       } catch (err) {
         console.log(err);
@@ -79,6 +80,8 @@ const Profile = () => {
   
     fetchProfile();
   }, []);
+  const [tempProfile,setTempProfile] = useState({...profile})
+  const [isEditing,setIsEditing] = useState(false)
 
   const [newAddress,setNewAddress] = useState("")
   const [newPhone,setNewPhone] = useState("")
@@ -89,7 +92,7 @@ const Profile = () => {
   const [currentPassword,setCurrentPassword] = useState("")
   const [newPassword,setNewPassword] = useState("")
   const [confirmPassword,setConfirmPassword] = useState("")
-
+  const [passwordMsg,setPasswordMsg] = useState("")
   /* LOGOUT */
 
   const onClickLogout = () => {
@@ -99,12 +102,11 @@ const Profile = () => {
 
   /* SAVE PROFILE */
 
-  const saveProfile = async (updatedData) => {
+  const saveProfile = async () => {
     try {
-      await updateUserProfileAPI(updatedData);
+      await updateUserProfileAPI(tempProfile);
   
-      setProfile(updatedData);
-      setTempProfile(updatedData);
+      setProfile(tempProfile);
       setIsEditing(false);
   
       toast.success("Profile Updated Successfully 🔥");
@@ -173,24 +175,45 @@ const updatePassword = () => {
     switch(active){
 
       case "Account Information":
-        if (isEditing) {
-          return <EditProfile profile={tempProfile} onSave={saveProfile} />
-        }
+
         return(
+
           <div className="account-info-container">
+
             <div className="form-group">
               <label>Name</label>
-              <input value={profile.name} disabled />
+              <input
+                value={tempProfile.name}
+                disabled={!isEditing}
+                onChange={(e)=>setTempProfile({
+                  ...tempProfile,
+                  name:e.target.value
+                })}
+              />
             </div>
 
             <div className="form-group">
               <label>Email</label>
-              <input value={profile.email} disabled />
+              <input
+                value={tempProfile.email}
+                disabled={!isEditing}
+                onChange={(e)=>setTempProfile({
+                  ...tempProfile,
+                  email:e.target.value
+                })}
+              />
             </div>
 
             <div className="form-group">
               <label>Phone Number</label>
-              <input value={profile.phone} disabled />
+              <input
+                value={tempProfile.phone}
+                disabled={!isEditing}
+                onChange={(e)=>setTempProfile({
+                  ...tempProfile,
+                  phone:e.target.value
+                })}
+              />
             </div>
 
             <div className="form-group">
@@ -200,9 +223,29 @@ const updatePassword = () => {
 
             <div className="form-group">
               <label>Default Address</label>
-              <textarea value={profile.address} disabled />
+              <textarea
+                value={tempProfile.address}
+                disabled={!isEditing}
+                onChange={(e)=>setTempProfile({
+                  ...tempProfile,
+                  address:e.target.value
+                })}
+              />
             </div>
+
+            {isEditing && (
+
+              <button
+                className="save-btn"
+                onClick={saveProfile}
+              >
+                Save Changes
+              </button>
+
+            )}
+
           </div>
+
         )
 
 
@@ -237,15 +280,15 @@ const updatePassword = () => {
                     <div className="order-history-header">
                       <span className="order-id">#{order.id}</span>
                       <span className="order-date">
-                        {new Date(order.orderDate).toLocaleDateString()}
-                      </span>
+  {new Date(order.orderDate).toLocaleDateString()}
+</span>
                     </div>
                     <div className="order-history-body">
                       <div className="order-items-scroll">
-                        {(order.items || []).map(item => (
+                        {order.items.map(item => (
                           <div key={item.id} className="order-item-mini">
                            <span className="item-name">
-                            {item.foodName || item.name} x {item.quantity}
+                            {item.foodName} x {item.quantity}
                           </span>
 
                           <span className="item-price">
@@ -262,7 +305,7 @@ const updatePassword = () => {
                         </div>
                         <div className="text-end">
                           <p className="mb-0 small text-muted">Total:</p>
-                          <span className="fw-bold text-success">₹{(order.totalAmount || 0).toFixed(2)}</span>
+                          <span className="fw-bold text-success">₹{order.totalAmount.toFixed(2)}</span>
                         </div>
                       </div>
                     </div>
@@ -286,7 +329,7 @@ const updatePassword = () => {
 
             <h4 className="section-title">Saved Addresses</h4>
 
-            {(addresses || []).map(addr =>(
+            {addresses.map(addr =>(
 
               <div key={addr.id} className="address-card">
 
@@ -497,6 +540,10 @@ const updatePassword = () => {
         
         )
 
+
+
+
+
       default:
         return null
     }
@@ -540,7 +587,7 @@ const updatePassword = () => {
                 </div>
 
                 <p className="profile-email">
-                  {profile.email}
+                  {userEmail || profile.email}
                 </p>
               </div>
 
@@ -553,7 +600,7 @@ const updatePassword = () => {
               setIsEditing(true)
             }}
           >
-            {isEditing ? 'Editing Profile...' : 'Edit Profile'}
+            Edit Profile
           </button>
 
         </div>
@@ -574,7 +621,6 @@ const updatePassword = () => {
                     onClickLogout()
                   }else{
                     setActive(item)
-                    if(item !== "Account Information") setIsEditing(false)
                   }
                 }}
               >

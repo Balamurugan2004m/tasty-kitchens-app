@@ -186,7 +186,7 @@ export const uploadFoodItemImageAPI = async (file) => {
 // ---------------- PROFILE ----------------
 
 export const getUserProfileAPI = async () => {
-    const response = await fetch(`${BASE_URL}/auth/profile`, {
+    const response = await fetch(`${BASE_URL}/user/profile`, {
         method: 'GET',
         headers: getAuthHeaders()
     });
@@ -194,7 +194,7 @@ export const getUserProfileAPI = async () => {
 };
 
 export const updateUserProfileAPI = async (profileData) => {
-    const response = await fetch(`${BASE_URL}/auth/profile`, {
+    const response = await fetch(`${BASE_URL}/user/profile`, {
         method: 'PUT',
         headers: getAuthHeaders(),
         body: JSON.stringify(profileData)
@@ -213,7 +213,7 @@ export const getMyOrdersAPI = async () => {
 };
 
 export const getAllOrdersAPI = async () => {
-    const response = await fetch(`${BASE_URL}/orders`, {
+    const response = await fetch(`${BASE_URL}/orders/all`, {
         method: 'GET',
         headers: getAuthHeaders()
     });
@@ -229,11 +229,23 @@ export const createOrderAPI = async (orderData) => {
     return handleResponse(response);
 };
 
-export const updateOrderStatusAPI = async (id, status) => {
-    const response = await fetch(`${BASE_URL}/orders/${id}/status`, {
-        method: 'PATCH',
+
+export const updateOrderStatusAPI = async (orderId, status) => {
+    const response = await fetch(
+        `${BASE_URL}/orders/${orderId}/status?status=${status}`,
+        {
+            method: 'PUT',
+            headers: getAuthHeaders()
+        }
+    );
+    return handleResponse(response);
+};
+
+export const placeOrderAPI = async (orderData) => {
+    const response = await fetch(`${BASE_URL}/orders`, {
+        method: 'POST',
         headers: getAuthHeaders(),
-        body: JSON.stringify({ status })
+        body: JSON.stringify(orderData)
     });
     return handleResponse(response);
 };

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Cookies from 'js-cookie'
 import Pagination from "../../components/Pagination"
 import { 
@@ -387,7 +387,7 @@ const AdminDashboard = () => {
                     
                     <div className="row mb-3">
                         <div className="col-md-6 custom-input-group">
-                            <label className="form-label text-muted fw-semibold">Cost ($)</label>
+                            <label className="form-label text-muted fw-semibold">Cost (₹)</label>
                             <input type="number" step="0.01" className="form-control admin-input" placeholder="0.00" required value={foodCost} onChange={e => setFoodCost(e.target.value)} />
                         </div>
                         <div className="col-md-6 custom-input-group">
@@ -726,7 +726,7 @@ const AdminDashboard = () => {
                                                                         {type}
                                                                     </span>
                                                                 </td>
-                                                                <td className="fw-bold text-success fs-6">${typeof cost === 'number' ? cost.toFixed(2) : cost}</td>
+                                                                <td className="fw-bold text-success fs-6">₹{typeof cost === 'number' ? cost.toFixed(2) : cost}</td>
                                                                 <td>
                                                                     <span className="rating-badge">★ {rating}</span>
                                                                 </td>
